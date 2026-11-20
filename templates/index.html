@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BASKET IQ | Retail Intelligence</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand">BASKET<span>IQ.</span></div>
+        <div class="tagline">RETAIL INTELLIGENCE PLATFORM</div>
+
+        <div class="nav-label">WORKSPACE</div>
+        <a class="nav-item active" href="#overview">▦ &nbsp; Overview</a>
+        <a class="nav-item" href="#recommendations">✧ &nbsp; AI Recommendations</a>
+        <a class="nav-item" href="#market-analysis">⌘ &nbsp; Market Basket Analysis</a>
+        <a class="nav-item" href="#product-insights">◈ &nbsp; Product Insights</a>
+
+        <div class="sidebar-bottom">
+            <strong>BASKET IQ ENGINE</strong><br>
+            Powered by Apriori Algorithm<br>
+            Unsupervised Machine Learning
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar" id="overview">
+            <div>
+                <div class="eyebrow">INTELLIGENCE / OVERVIEW</div>
+                <h1>Retail Analytics Dashboard</h1>
+                <div class="subtitle">Discover product relationships. Recommend smarter.</div>
+            </div>
+            <div class="status"><i></i> Model Active</div>
+        </header>
+
+        <div class="section-heading">Dataset Overview</div>
+
+        <section class="stats">
+            <div class="card">
+                <div class="stat-label">Total Transactions</div>
+                <div class="stat-value">{{ "{:,}".format(total_transactions) }}</div>
+                <div class="stat-note">Processed baskets</div>
+            </div>
+            <div class="card">
+                <div class="stat-label">Unique Products</div>
+                <div class="stat-value">{{ "{:,}".format(total_products) }}</div>
+                <div class="stat-note">Unique products</div>
+            </div>
+            <div class="card">
+                <div class="stat-label">Frequent Itemsets</div>
+                <div class="stat-value">{{ "{:,}".format(total_itemsets) }}</div>
+                <div class="stat-note">Discovered combinations</div>
+            </div>
+            <div class="card">
+                <div class="stat-label">Association Rules</div>
+                <div class="stat-value">{{ "{:,}".format(total_rules) }}</div>
+                <div class="stat-note">Generated relationships</div>
+            </div>
+        </section>
+
+        <section id="recommendations">
+            <div class="section-heading">AI Product Recommendation Engine</div>
+
+            <div class="recommend-layout">
+                <div class="card">
+                    <div class="card-title">Find Product Connections</div>
+                    <div class="card-description">
+                        Select products from a customer's basket to discover related products.
+                    </div>
+
+                    <form id="recommendForm">
+                        <label for="productSelect">Select Basket Products</label>
+                        <select id="productSelect" multiple size="9">
+                            {% for product in products %}
+                            <option value="{{ product }}">{{ product|title }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <div class="hint">Hold Command on Mac to select multiple products.</div>
+
+                        <button class="primary-btn" id="recommendBtn" type="submit">
+                            ✧ Generate AI Recommendations
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="results-header">
+                        <div class="card-title">Recommended Products</div>
+                        <div class="ai-tag">✧ APRIORI ENGINE</div>
+                    </div>
+                    <div id="results">
+                        <div class="empty">
+                            <div class="empty-icon">◈</div>
+                            <strong>Your recommendations will appear here</strong>
+                            <p>Select products and run the AI engine.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="market-analysis">
+            <div class="section-heading">Market Basket Analysis</div>
+            <div class="card">
+                <div class="analysis-header">
+                    <div>
+                        <div class="card-title">Association Rules Explorer</div>
+                        <div class="card-description">
+                            Explore product relationships discovered by the Apriori algorithm.
+                        </div>
+                    </div>
+                    <button class="secondary-btn" id="exportRulesBtn">↓ Export CSV</button>
+                </div>
+
+                <div class="filters">
+                    <div>
+                        <label for="supportFilter">Minimum Support</label>
+                        <input id="supportFilter" type="number" min="0" max="1" step="0.001" value="0">
+                    </div>
+                    <div>
+                        <label for="confidenceFilter">Minimum Confidence (%)</label>
+                        <input id="confidenceFilter" type="number" min="0" max="100" step="1" value="0">
+                    </div>
+                    <div>
+                        <label for="liftFilter">Minimum Lift</label>
+                        <input id="liftFilter" type="number" min="0" step="0.01" value="1">
+                    </div>
+                    <button class="primary-btn filter-btn" id="applyFiltersBtn">Apply Filters</button>
+                </div>
+
+                <div class="table-info">
+                    <span id="rulesCount">Loading rules...</span>
+                    <span>Sorted by Lift</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Antecedent</th>
+                                <th>Consequent</th>
+                                <th>Support</th>
+                                <th>Confidence</th>
+                                <th>Lift</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rulesTableBody">
+                            <tr><td colspan="6" class="table-empty">Loading association rules...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="analytics analysis-charts">
+                <div class="card">
+                    <div class="card-title">Top Product Relationships</div>
+                    <div class="card-description">Association rules ranked by lift.</div>
+                    <div id="rulesChart" class="chart-box"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Rule Metrics Distribution</div>
+                    <div class="card-description">Support, confidence and lift across discovered rules.</div>
+                    <div id="metricsChart" class="chart-box"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="product-insights">
+            <div class="section-heading">Product Insights</div>
+            <div class="analytics">
+                <div class="card">
+                    <div class="card-title">Strongest Product Association</div>
+                    <div class="card-description">Highest lift relationship in the current filtered results.</div>
+                    <div id="strongestRule" class="insight-box">
+                        Apply filters to explore product insights.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Understanding the Metrics</div>
+                    <div class="insight">
+                        <div class="insight-icon">◉</div>
+                        <div><strong>Support</strong><p>How frequently the product combination occurs in all transactions.</p></div>
+                    </div>
+                    <hr>
+                    <div class="insight">
+                        <div class="insight-icon">↗</div>
+                        <div><strong>Confidence</strong><p>How often the consequent occurs when the antecedent occurs.</p></div>
+                    </div>
+                    <hr>
+                    <div class="insight">
+                        <div class="insight-icon">✧</div>
+                        <div><strong>Lift</strong><p>How much stronger the association is compared with independent occurrence.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-heading">How BASKET IQ Works</div>
+        <section class="card process-card">
+            <div class="insight">
+                <div class="insight-icon">▤</div>
+                <div><strong>Transaction Processing</strong><p>Purchase records are transformed into a one-hot basket matrix.</p></div>
+            </div>
+            <hr>
+            <div class="insight">
+                <div class="insight-icon">✧</div>
+                <div><strong>Apriori Algorithm</strong><p>Frequent product combinations are discovered using minimum support.</p></div>
+            </div>
+            <hr>
+            <div class="insight">
+                <div class="insight-icon">◈</div>
+                <div><strong>Association Rules</strong><p>Confidence and lift identify product relationships for recommendations.</p></div>
+            </div>
+        </section>
+
+        <footer>BASKET IQ © 2026 · AI-POWERED RETAIL INTELLIGENCE</footer>
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

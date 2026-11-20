@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}BASKET IQ | Retail Intelligence{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark">B</div>
+
+            <div class="brand-copy">
+                <h1>BASKET IQ<span>.</span></h1>
+                <p>RETAIL INTELLIGENCE</p>
+            </div>
+        </div>
+
+        <div class="sidebar-section-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="{{ url_for('home') }}"
+               class="nav-link {% if active_page == 'overview' %}active{% endif %}">
+                <span class="nav-icon">▦</span>
+                <span>Overview</span>
+            </a>
+
+            <a href="{{ url_for('recommendations_page') }}"
+               class="nav-link {% if active_page == 'recommendations' %}active{% endif %}">
+                <span class="nav-icon">✧</span>
+                <span>AI Recommendations</span>
+            </a>
+
+            <a href="{{ url_for('market_analysis_page') }}"
+               class="nav-link {% if active_page == 'market-analysis' %}active{% endif %}">
+                <span class="nav-icon">⌘</span>
+                <span>Market Basket Analysis</span>
+            </a>
+
+            <a href="{{ url_for('product_insights_page') }}"
+               class="nav-link {% if active_page == 'product-insights' %}active{% endif %}">
+                <span class="nav-icon">◇</span>
+                <span>Product Insights</span>
+            </a>
+
+            <div class="sidebar-section-label secondary-label">INFORMATION</div>
+
+            <a href="{{ url_for('about_page') }}"
+               class="nav-link {% if active_page == 'about' %}active{% endif %}">
+                <span class="nav-icon">ⓘ</span>
+                <span>About Project</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>System Online</strong>
+                    <small>Apriori Engine Loaded</small>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                BASKET IQ · 2026
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN AREA -->
+    <main class="main-area">
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"
+                        aria-label="Toggle sidebar">
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    <span>Workspace</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <strong>{% block breadcrumb %}Overview{% endblock %}</strong>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="system-indicator">
+                    <span class="status-dot"></span>
+                    <span>LIVE SYSTEM</span>
+                </div>
+
+                <div class="user-avatar">BI</div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+        <section class="page-content">
+
+            {% block content %}{% endblock %}
+
+        </section>
+
+
+        <footer class="main-footer">
+            <span>BASKET IQ</span>
+            <span>AI-POWERED RETAIL INTELLIGENCE PLATFORM</span>
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("sidebar-open");
+        });
+    }
+</script>
+
+{% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

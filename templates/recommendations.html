@@ -1,0 +1,1484 @@
+
+{% extends "base.html" %}
+
+{% block title %}BASKET IQ | Smart Recommendations{% endblock %}
+{% block breadcrumb %}Smart Recommendations{% endblock %}
+
+{% block extra_head %}
+<style>
+.biq {
+    --purple:#9675ff;
+    --cyan:#38d5e8;
+    --green:#43d6a1;
+    --surface:#111827;
+    --surface2:#192235;
+    --border:rgba(255,255,255,.09);
+    --muted:#929bb2;
+    color:#f5f6ff;
+    padding-bottom:40px;
+}
+.biq * {box-sizing:border-box}
+
+.biq-hero {
+    padding:34px;
+    border-radius:22px;
+    border:1px solid #9675ff40;
+    background:
+        radial-gradient(ellipse at 90% 10%,#7955df45,transparent 40%),
+        radial-gradient(ellipse at 5% 100%,#1c9db333,transparent 40%),
+        linear-gradient(120deg,#191a35,#101726);
+    margin-bottom:30px;
+}
+.biq-hero-label {
+    color:#b6a2ff;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+.biq-hero h1 {
+    font-size:clamp(30px,4vw,44px);
+    letter-spacing:-2px;
+    line-height:1.1;
+    margin:14px 0;
+}
+.biq-hero h1 span {
+    background:linear-gradient(90deg,#a68aff,#41d7eb);
+    color:transparent;
+    background-clip:text;
+    -webkit-background-clip:text;
+}
+.biq-hero p {
+    max-width:610px;
+    color:#aeb5ca;
+    font-size:14px;
+    line-height:1.8;
+    margin:0;
+}
+.biq-pills {
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-top:21px;
+}
+.biq-pill {
+    background:#ffffff0c;
+    border:1px solid #ffffff17;
+    border-radius:30px;
+    padding:8px 13px;
+    color:#d3d4e8;
+    font-size:10px;
+}
+
+.biq-section {margin:28px 0}
+.biq-section-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:16px;
+}
+.biq-heading-left {
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+.biq-number {
+    width:44px;
+    height:44px;
+    display:grid;
+    place-items:center;
+    border-radius:13px;
+    flex-shrink:0;
+    font-weight:800;
+}
+.biq-number.purple {
+    background:#9675ff20;
+    color:#b6a2ff;
+    border:1px solid #9675ff45;
+}
+.biq-number.cyan {
+    background:#38d5e820;
+    color:#65dfed;
+    border:1px solid #38d5e845;
+}
+.biq-number.green {
+    background:#43d6a120;
+    color:#68e6b7;
+    border:1px solid #43d6a145;
+}
+.biq-section-head h2 {margin:0;font-size:21px}
+.biq-section-head p {
+    color:var(--muted);
+    margin:5px 0 0;
+    font-size:12px;
+}
+.biq-counter {
+    background:#ffffff09;
+    border:1px solid var(--border);
+    color:#c6cbe0;
+    padding:8px 12px;
+    border-radius:9px;
+    font-size:10px;
+    white-space:nowrap;
+}
+.biq-panel {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:17px;
+    overflow:hidden;
+}
+.biq-panel-head {
+    padding:19px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    border-bottom:1px solid var(--border);
+}
+.biq-panel-head h3 {font-size:15px;margin:0}
+.biq-panel-head p {
+    font-size:11px;
+    color:var(--muted);
+    margin:5px 0 0;
+}
+
+/* SEARCH */
+.biq-tools {
+    padding:18px 21px 13px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+.biq-search {
+    flex:1;
+    min-width:220px;
+    height:45px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 13px;
+    border-radius:11px;
+    background:#090f1d;
+    border:1px solid #ffffff17;
+}
+.biq-search span {color:#a68aff;font-size:20px}
+.biq-search input {
+    flex:1;
+    min-width:0;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:white;
+    font-size:13px;
+}
+.biq-search input::placeholder {color:#727b93}
+.biq-search button {
+    border:0;
+    background:transparent;
+    color:#aab0c3;
+    cursor:pointer;
+    font-size:19px;
+}
+.biq-select-visible {
+    height:43px;
+    padding:0 14px;
+    border:1px solid #9675ff50;
+    color:#c1b2ff;
+    background:#9675ff12;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:700;
+}
+
+/* CATEGORIES */
+.biq-category-label {
+    padding:5px 21px 11px;
+    color:#8f98b0;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.3px;
+}
+.biq-categories {
+    display:flex;
+    gap:9px;
+    padding:0 21px 17px;
+    overflow-x:auto;
+    scrollbar-width:thin;
+}
+.biq-category {
+    flex-shrink:0;
+    padding:10px 14px;
+    border:1px solid #ffffff15;
+    background:#1a2233;
+    color:#b8c0d4;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:11px;
+    transition:.2s;
+}
+.biq-category:hover {
+    border-color:#9675ff80;
+    color:white;
+}
+.biq-category.active {
+    background:linear-gradient(110deg,#7958df,#4b72d7);
+    border-color:transparent;
+    color:white;
+    box-shadow:0 5px 18px #7657ec35;
+}
+.biq-category small {
+    opacity:.75;
+    margin-left:5px;
+    font-size:9px;
+}
+.biq-product-list {
+    padding:0 21px 20px;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:9px;
+    max-height:330px;
+    overflow-y:auto;
+}
+.biq-product-list::-webkit-scrollbar {width:5px}
+.biq-product-list::-webkit-scrollbar-thumb {
+    background:#6654a1;
+    border-radius:10px;
+}
+.biq-product {
+    min-width:0;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:12px 10px;
+    border-radius:10px;
+    background:var(--surface2);
+    border:1px solid #ffffff0b;
+    cursor:pointer;
+    transition:.2s;
+}
+.biq-product[hidden] {display:none !important}
+.biq-product:hover {
+    border-color:#9675ff80;
+    background:#25223c;
+    transform:translateY(-2px);
+}
+.biq-product:has(input:checked) {
+    border-color:#9c82ff;
+    background:#8060ff20;
+}
+.biq-product input {
+    width:16px;
+    height:16px;
+    flex-shrink:0;
+    accent-color:#9675ff;
+    cursor:pointer;
+}
+.biq-product-name {
+    color:#e0e3f1;
+    font-size:11px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.biq-product:has(input:checked) .biq-product-name {
+    color:#c9baff;
+    font-weight:700;
+}
+.biq-empty-search {
+    padding:25px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+}
+.biq-product-footer {
+    padding:12px 21px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:10px;
+}
+
+/* BASKET */
+.biq-basket-panel {
+    background:radial-gradient(ellipse at 95% 0%,#38d5e814,transparent 45%),#111827;
+}
+.biq-basket-content {padding:22px}
+.biq-basket-summary {
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:17px;
+    border-radius:13px;
+    background:linear-gradient(110deg,#9270ff22,#38d5e812);
+    border:1px solid #9270ff35;
+}
+.biq-basket-icon {
+    width:50px;
+    height:50px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    background:#9675ff24;
+    color:#c5b6ff;
+    font-size:24px;
+    flex-shrink:0;
+}
+.biq-basket-summary strong {font-size:14px;display:block}
+.biq-basket-summary small {
+    display:block;
+    color:#9ba4bc;
+    font-size:11px;
+    margin-top:5px;
+}
+.biq-basket-items {
+    margin-top:16px;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:9px;
+    min-height:70px;
+}
+.biq-basket-empty {
+    grid-column:1/-1;
+    padding:23px;
+    text-align:center;
+    border:1px dashed #ffffff25;
+    border-radius:12px;
+    color:#929bb2;
+    font-size:12px;
+}
+.biq-basket-chip {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    padding:11px;
+    background:#1d2537;
+    border:1px solid #ffffff13;
+    border-radius:10px;
+    min-width:0;
+}
+.biq-basket-chip span {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:11px;
+    color:#e4e5f4;
+}
+.biq-basket-chip button {
+    border:0;
+    background:transparent;
+    color:#ff8a9f;
+    font-size:19px;
+    cursor:pointer;
+}
+.biq-basket-actions {
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:19px;
+    flex-wrap:wrap;
+}
+.biq-clear {
+    height:44px;
+    padding:0 20px;
+    background:#ffffff08;
+    border:1px solid #ffffff1a;
+    border-radius:10px;
+    color:#b6bdd0;
+    cursor:pointer;
+    font-size:11px;
+}
+.biq-generate {
+    min-width:245px;
+    height:48px;
+    padding:0 22px;
+    border:0;
+    border-radius:11px;
+    color:white;
+    background:linear-gradient(100deg,#865fff,#477be9 60%,#27bcd1);
+    box-shadow:0 8px 24px #7657ec3c;
+    font-weight:800;
+    font-size:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+.biq-generate:hover {
+    transform:translateY(-2px);
+    box-shadow:0 11px 28px #7657ec66;
+}
+.biq-generate:disabled {
+    opacity:.55;
+    cursor:wait;
+    transform:none;
+}
+
+/* RECOMMENDATION OUTPUT */
+.biq-output {
+    background:radial-gradient(ellipse at 50% 0%,#8662ff20,transparent 52%),#101725;
+    border-color:#9675ff40;
+}
+.biq-output-head {
+    padding:22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    border-bottom:1px solid var(--border);
+}
+.biq-output-title {
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+.biq-output-icon {
+    height:46px;
+    width:46px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    font-size:23px;
+    color:#c6b6ff;
+    background:linear-gradient(135deg,#9271ff35,#35d2e825);
+    border:1px solid #9675ff45;
+}
+.biq-output-title h2 {margin:0;font-size:20px}
+.biq-output-title p {
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:11px;
+}
+.biq-status {
+    padding:8px 12px;
+    border:1px solid #9675ff40;
+    background:#9675ff13;
+    border-radius:30px;
+    color:#c0adff;
+    font-size:10px;
+    white-space:nowrap;
+}
+.biq-output-body {padding:24px}
+.biq-empty {
+    min-height:250px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+}
+.biq-empty-symbol {
+    width:72px;
+    height:72px;
+    display:grid;
+    place-items:center;
+    border-radius:22px;
+    font-size:32px;
+    color:#bcaaff;
+    border:1px solid #9675ff50;
+    background:linear-gradient(135deg,#9675ff28,#38d5e81a);
+    margin-bottom:17px;
+}
+.biq-empty h3 {font-size:17px;margin:0 0 8px}
+.biq-empty p {
+    max-width:450px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+    margin:0;
+}
+.biq-result-summary {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding-bottom:21px;
+}
+.biq-result-summary small {
+    display:block;
+    color:#969eb5;
+    font-size:10px;
+    margin-bottom:7px;
+    letter-spacing:1px;
+}
+.biq-result-summary strong {
+    font-size:13px;
+    color:#dedaf9;
+}
+.biq-result-count {text-align:right}
+.biq-result-count strong {
+    display:block;
+    font-size:25px;
+    color:#b7a2ff;
+}
+.biq-result-count span {
+    color:var(--muted);
+    font-size:10px;
+}
+.biq-result-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+}
+.biq-result-card {
+    position:relative;
+    overflow:hidden;
+    padding:18px;
+    border-radius:15px;
+    border:1px solid #ffffff16;
+    background:linear-gradient(145deg,#20283b,#151c2c);
+    animation:biqEnter .4s ease both;
+    transition:.25s;
+}
+.biq-result-card:hover {
+    transform:translateY(-4px);
+    border-color:#a48aff80;
+    box-shadow:0 15px 35px #00000038;
+}
+.biq-result-card:before {
+    content:"";
+    position:absolute;
+    height:2px;
+    left:0;
+    right:0;
+    top:0;
+    background:linear-gradient(90deg,#9976ff,#3cd5e9);
+}
+.biq-card-top {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+}
+.biq-rank {color:#bba9ff;font-size:10px;font-weight:800}
+.biq-match {
+    background:#43d6a119;
+    color:#6ce4b8;
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:9px;
+}
+.biq-product-symbol {
+    width:65px;
+    height:65px;
+    margin:21px auto 15px;
+    display:grid;
+    place-items:center;
+    border-radius:19px;
+    font-size:28px;
+    color:#c2b1ff;
+    background:linear-gradient(140deg,#9675ff32,#38d5e825);
+    border:1px solid #9675ff40;
+}
+.biq-result-card h3 {
+    text-align:center;
+    font-size:17px;
+    margin:0 0 8px;
+    overflow-wrap:anywhere;
+}
+.biq-reason {
+    min-height:30px;
+    text-align:center;
+    font-size:10px;
+    line-height:1.6;
+    color:#a2aac0;
+}
+.biq-rule {
+    margin-top:15px;
+    background:#0c1322;
+    border:1px solid #ffffff0b;
+    border-radius:9px;
+    padding:10px;
+}
+.biq-rule small {
+    display:block;
+    font-size:9px;
+    color:#8f9ab4;
+    margin-bottom:7px;
+}
+.biq-rule strong {
+    font-size:10px;
+    color:#c8bbff;
+    overflow-wrap:anywhere;
+}
+.biq-metrics {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:7px;
+    margin-top:11px;
+}
+.biq-metric {
+    padding:9px 6px;
+    background:#ffffff08;
+    border:1px solid #ffffff0b;
+    border-radius:8px;
+    min-width:0;
+}
+.biq-metric span {
+    display:block;
+    font-size:8px;
+    color:#929bb2;
+    margin-bottom:6px;
+}
+.biq-metric strong {
+    font-size:12px;
+    overflow-wrap:anywhere;
+}
+
+/* HOW AI RECOMMENDS */
+.biq-how {
+    margin-top:25px;
+    padding:23px;
+    border:1px solid #9675ff40;
+    border-radius:16px;
+    background:
+        radial-gradient(ellipse at 100% 0%,#38d5e812,transparent 45%),
+        linear-gradient(135deg,#211c3d,#111c2d);
+}
+.biq-how-header {
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:21px;
+}
+.biq-how-icon {
+    width:48px;
+    height:48px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    background:#9675ff25;
+    border:1px solid #9675ff50;
+    color:#c5b3ff;
+    font-size:23px;
+    flex-shrink:0;
+}
+.biq-how-header h3 {
+    margin:0;
+    font-size:18px;
+}
+.biq-how-header p {
+    color:#929bb2;
+    font-size:11px;
+    margin:5px 0 0;
+}
+.biq-how-steps {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:13px;
+}
+.biq-how-step {
+    padding:17px;
+    background:#ffffff08;
+    border:1px solid #ffffff12;
+    border-radius:12px;
+    transition:.2s;
+}
+.biq-how-step:hover {
+    border-color:#9675ff70;
+    background:#9675ff0d;
+}
+.biq-how-step small {
+    color:#a991ff;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+.biq-how-step h4 {
+    margin:10px 0 8px;
+    color:#e8e5ff;
+    font-size:14px;
+}
+.biq-how-step p {
+    margin:0;
+    color:#a7afc4;
+    font-size:11px;
+    line-height:1.8;
+}
+.biq-how-formula {
+    margin-top:16px;
+    padding:17px;
+    border-radius:12px;
+    background:#090f1d;
+    border:1px solid #ffffff13;
+}
+.biq-how-formula h4 {
+    margin:0 0 12px;
+    font-size:12px;
+    color:#c8bbff;
+}
+.biq-formula-row {
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+}
+.biq-formula-item {
+    flex:1;
+    min-width:130px;
+    padding:12px;
+    background:#ffffff08;
+    border-radius:9px;
+}
+.biq-formula-item strong {
+    display:block;
+    color:#75dfc0;
+    font-size:13px;
+    margin-bottom:5px;
+}
+.biq-formula-item span {
+    display:block;
+    color:#9da7be;
+    font-size:10px;
+    line-height:1.6;
+}
+.biq-how-conclusion {
+    margin-top:15px;
+    padding:15px;
+    border-radius:11px;
+    background:#43d6a110;
+    border:1px solid #43d6a135;
+    color:#a3eaca;
+    font-size:11px;
+    line-height:1.8;
+}
+.biq-how-conclusion strong {
+    color:#6ce4b8;
+}
+
+/* LOADING */
+.biq-loading {
+    min-height:250px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+.biq-spinner {
+    height:52px;
+    width:52px;
+    border:3px solid #ffffff17;
+    border-top-color:#a48aff;
+    border-right-color:#38d5e8;
+    border-radius:50%;
+    animation:biqSpin .8s linear infinite;
+    margin-bottom:19px;
+}
+.biq-loading h3 {font-size:16px;margin:0 0 8px}
+.biq-loading p {color:var(--muted);font-size:11px}
+
+@keyframes biqSpin {to{transform:rotate(360deg)}}
+@keyframes biqEnter {
+    from {opacity:0;transform:translateY(12px)}
+    to {opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:1050px) {
+    .biq-product-list {grid-template-columns:repeat(3,minmax(0,1fr))}
+    .biq-result-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px) {
+    .biq-hero {padding:24px 19px}
+    .biq-section-head {align-items:flex-start}
+    .biq-section-head h2 {font-size:17px}
+    .biq-product-list {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        padding:0 12px 15px;
+    }
+    .biq-product {padding:10px 7px}
+    .biq-product-name {font-size:10px}
+    .biq-result-grid {grid-template-columns:1fr}
+    .biq-basket-items {grid-template-columns:repeat(2,minmax(0,1fr))}
+    .biq-output-head {
+        align-items:flex-start;
+        flex-direction:column;
+    }
+    .biq-output-body {padding:14px}
+    .biq-result-summary {
+        align-items:flex-start;
+        flex-direction:column;
+    }
+    .biq-result-count {text-align:left}
+    .biq-basket-actions {flex-direction:column}
+    .biq-generate,.biq-clear {
+        width:100%;
+        min-width:0;
+    }
+    .biq-how {padding:16px}
+    .biq-how-steps {grid-template-columns:1fr}
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="biq">
+
+    <section class="biq-hero">
+        <span class="biq-hero-label">BASKET IQ / AI RECOMMENDATION ENGINE</span>
+        <h1>Shop smarter.<br><span>Discover together.</span></h1>
+        <p>Build your shopping basket and discover products connected by real shopping patterns. Let AI reveal what customers frequently buy together.</p>
+        <div class="biq-pills">
+            <span class="biq-pill">✦ APRIORI INTELLIGENCE</span>
+            <span class="biq-pill">✦ SMART PRODUCT MATCHING</span>
+            <span class="biq-pill">✦ DATA-DRIVEN DISCOVERY</span>
+        </div>
+    </section>
+
+    <!-- 01 PRODUCT SELECTION -->
+    <section class="biq-section" id="product-selection">
+        <div class="biq-section-head">
+            <div class="biq-heading-left">
+                <div class="biq-number purple">01</div>
+                <div>
+                    <h2>Product Selection</h2>
+                    <p>Browse products category-wise and build your basket.</p>
+                </div>
+            </div>
+            <span class="biq-counter">{{ products|length }} PRODUCTS</span>
+        </div>
+
+        <div class="biq-panel">
+            <div class="biq-panel-head">
+                <div>
+                    <h3>Explore Grocery Products</h3>
+                    <p>Choose a category or search across all products</p>
+                </div>
+                <span class="biq-counter" id="biqVisibleCount">{{ products|length }} AVAILABLE</span>
+            </div>
+
+            <div class="biq-tools">
+                <div class="biq-search">
+                    <span>⌕</span>
+                    <input id="biqSearch" type="text" placeholder="Search milk, bread, sausage...">
+                    <button type="button" id="biqSearchClear">×</button>
+                </div>
+                <button class="biq-select-visible" id="biqSelectVisible" type="button">
+                    Select visible +
+                </button>
+            </div>
+
+            <div class="biq-category-label">BROWSE BY CATEGORY</div>
+
+            <div class="biq-categories" id="biqCategories">
+                <button class="biq-category active" data-category="all">✦ All Products <small id="count-all"></small></button>
+                <button class="biq-category" data-category="dairy">🥛 Dairy & Breakfast <small id="count-dairy"></small></button>
+                <button class="biq-category" data-category="bakery">🍞 Bakery & Bread <small id="count-bakery"></small></button>
+                <button class="biq-category" data-category="produce">🥦 Fruits & Vegetables <small id="count-produce"></small></button>
+                <button class="biq-category" data-category="meat">🥩 Meat & Seafood <small id="count-meat"></small></button>
+                <button class="biq-category" data-category="beverages">🥤 Beverages <small id="count-beverages"></small></button>
+                <button class="biq-category" data-category="snacks">🍫 Snacks & Sweets <small id="count-snacks"></small></button>
+                <button class="biq-category" data-category="pantry">🛒 Grocery & Staples <small id="count-pantry"></small></button>
+                <button class="biq-category" data-category="household">🧴 Household & Others <small id="count-household"></small></button>
+            </div>
+
+            <div class="biq-product-list" id="biqProductList">
+                {% for product in products %}
+                <label class="biq-product" data-name="{{ product|lower|e }}">
+                    <input type="checkbox" class="biq-checkbox" value="{{ product|e }}">
+                    <span class="biq-product-name">{{ product }}</span>
+                </label>
+                {% endfor %}
+            </div>
+
+            <div class="biq-empty-search" id="biqNoSearch" hidden>
+                No matching products in this category.
+            </div>
+
+            <div class="biq-product-footer">
+                <span id="biqSelectionCount">0 products selected</span>
+                <span id="biqFooterCategory">ALL PRODUCTS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 SHOPPING BASKET -->
+    <section class="biq-section" id="shopping-basket">
+        <div class="biq-section-head">
+            <div class="biq-heading-left">
+                <div class="biq-number cyan">02</div>
+                <div>
+                    <h2>Shopping Basket</h2>
+                    <p>Review your selected products before analysis.</p>
+                </div>
+            </div>
+            <span class="biq-counter" id="biqBasketCount">0 ITEMS</span>
+        </div>
+
+        <div class="biq-panel biq-basket-panel">
+            <div class="biq-panel-head">
+                <div>
+                    <h3>Your Selected Basket</h3>
+                    <p>Your products are ready for AI analysis</p>
+                </div>
+                <span class="biq-counter">BASKET BUILDER</span>
+            </div>
+
+            <div class="biq-basket-content">
+                <div class="biq-basket-summary">
+                    <div class="biq-basket-icon">▤</div>
+                    <div>
+                        <strong id="biqBasketTitle">Your basket is empty</strong>
+                        <small id="biqBasketSubtitle">Select products from the catalogue above</small>
+                    </div>
+                </div>
+
+                <div class="biq-basket-items" id="biqBasketItems">
+                    <div class="biq-basket-empty">
+                        Your selected products will appear here.
+                    </div>
+                </div>
+
+                <div class="biq-basket-actions">
+                    <button type="button" class="biq-clear" id="biqClear">Clear Basket</button>
+                    <button type="button" class="biq-generate" id="biqGenerate">
+                        ✧ &nbsp; GET SMART RECOMMENDATIONS
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 AI RECOMMENDATIONS -->
+    <section class="biq-section" id="ai-recommendations">
+        <div class="biq-section-head">
+            <div class="biq-heading-left">
+                <div class="biq-number green">03</div>
+                <div>
+                    <h2>AI Recommendations</h2>
+                    <p>Discover products associated with your basket.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="biq-panel biq-output">
+            <div class="biq-output-head">
+                <div class="biq-output-title">
+                    <div class="biq-output-icon">✧</div>
+                    <div>
+                        <h2>Recommended For You</h2>
+                        <p>Powered by Apriori Association Rule Mining</p>
+                    </div>
+                </div>
+                <span class="biq-status" id="biqStatus">WAITING FOR BASKET</span>
+            </div>
+
+            <div class="biq-output-body" id="biqResults">
+                <div class="biq-empty">
+                    <div class="biq-empty-symbol">✧</div>
+                    <h3>Your smart recommendations await</h3>
+                    <p>Select products, review your shopping basket and generate recommendations. Your AI-generated suggestions will appear here.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const checkboxes = [...document.querySelectorAll(".biq-checkbox")];
+    const options = [...document.querySelectorAll(".biq-product")];
+    const categoryButtons = [...document.querySelectorAll(".biq-category")];
+
+    const search = document.getElementById("biqSearch");
+    const searchClear = document.getElementById("biqSearchClear");
+    const selectVisible = document.getElementById("biqSelectVisible");
+
+    const basketItems = document.getElementById("biqBasketItems");
+    const basketCount = document.getElementById("biqBasketCount");
+    const basketTitle = document.getElementById("biqBasketTitle");
+    const basketSubtitle = document.getElementById("biqBasketSubtitle");
+    const selectionCount = document.getElementById("biqSelectionCount");
+
+    const clearBtn = document.getElementById("biqClear");
+    const generateBtn = document.getElementById("biqGenerate");
+
+    const results = document.getElementById("biqResults");
+    const status = document.getElementById("biqStatus");
+    const noSearch = document.getElementById("biqNoSearch");
+    const visibleCount = document.getElementById("biqVisibleCount");
+    const footerCategory = document.getElementById("biqFooterCategory");
+
+    let activeCategory = "all";
+    let isGenerating = false;
+
+    /* PRODUCT CATEGORY RULES */
+    const categoryRules = {
+        dairy: [
+            "milk","yogurt","yoghurt","cheese","butter","cream",
+            "curd","margarine","quark","buttermilk","whipped"
+        ],
+        bakery: [
+            "bread","roll","buns","baguette","toast","pastry",
+            "cake","biscuit","cracker","waffle","croissant","zwieback"
+        ],
+        produce: [
+            "fruit","vegetable","apple","banana","orange","grape",
+            "berry","berries","tropical","citrus","root vegetable",
+            "onion","potato","tomato","cucumber","pepper","carrot",
+            "herb","lettuce","salad","cabbage","broccoli","mushroom",
+            "zucchini","leek","garlic","spinach","cherry","melon",
+            "peach","plum","pear","avocado","kiwi","pineapple",
+            "lemon","lime","strawberry"
+        ],
+        meat: [
+            "meat","sausage","frankfurter","chicken","beef","pork",
+            "ham","bacon","turkey","fish","seafood","salami",
+            "steak","liver","minced","meatball"
+        ],
+        beverages: [
+            "water","soda","juice","coffee","tea","beer","wine",
+            "brandy","liquor","drink","cocoa","lemonade",
+            "soft drink","energy drink"
+        ],
+        snacks: [
+            "chocolate","candy","gum","snack","chips","crisps",
+            "popcorn","nut","nuts","ice cream","sweet","sweets",
+            "dessert","pudding","marshmallow","cake bar","cereal bar"
+        ],
+        pantry: [
+            "rice","pasta","noodle","flour","sugar","salt","oil",
+            "vinegar","spice","sauce","ketchup","mustard","jam",
+            "honey","canned","tin","soup","stock","muesli",
+            "cereal","oat","lentil","bean","pea","tomato paste",
+            "mayonnaise","spread","baking","seasoning"
+        ],
+        household: [
+            "detergent","cleaner","cleaning","soap","shampoo",
+            "toothpaste","tissue","napkin","candle","paper",
+            "newspaper","bag","foil","wrap","plastic","battery",
+            "flower","plant","pet","cat","dog","photo",
+            "household","hygiene","cosmetic","disposable"
+        ]
+    };
+
+    const categoryNames = {
+        all:"ALL PRODUCTS",
+        dairy:"DAIRY & BREAKFAST",
+        bakery:"BAKERY & BREAD",
+        produce:"FRUITS & VEGETABLES",
+        meat:"MEAT & SEAFOOD",
+        beverages:"BEVERAGES",
+        snacks:"SNACKS & SWEETS",
+        pantry:"GROCERY & STAPLES",
+        household:"HOUSEHOLD & OTHERS"
+    };
+
+    function getCategory(name) {
+        const value = name.toLowerCase();
+
+        for (const [category, keywords] of Object.entries(categoryRules)) {
+            if (keywords.some(keyword => value.includes(keyword))) {
+                return category;
+            }
+        }
+
+        return "household";
+    }
+
+    /* ASSIGN CATEGORIES */
+    const categoryCounts = {all:options.length};
+
+    options.forEach(option => {
+        const category = getCategory(option.dataset.name);
+        option.dataset.category = category;
+        categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    });
+
+    Object.entries(categoryCounts).forEach(([category,count]) => {
+        const element = document.getElementById(`count-${category}`);
+        if (element) element.textContent = `(${count})`;
+    });
+
+    function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, char => ({
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#39;"
+        })[char]);
+    }
+
+    function getSelected() {
+        return checkboxes.filter(box => box.checked).map(box => box.value);
+    }
+
+    /* UPDATE BASKET */
+    function updateBasket() {
+        const selected = getSelected();
+
+        basketCount.textContent = `${selected.length} ITEMS`;
+        selectionCount.textContent = `${selected.length} products selected`;
+
+        basketTitle.textContent = selected.length
+            ? `${selected.length} products in your basket`
+            : "Your basket is empty";
+
+        basketSubtitle.textContent = selected.length
+            ? "Review your products and generate recommendations"
+            : "Select products from the catalogue above";
+
+        if (!selected.length) {
+            basketItems.innerHTML = `
+                <div class="biq-basket-empty">
+                    Your selected products will appear here.
+                </div>`;
+            return;
+        }
+
+        basketItems.innerHTML = selected.map(product => `
+            <div class="biq-basket-chip">
+                <span>${escapeHTML(product)}</span>
+                <button type="button"
+                    data-remove="${escapeHTML(product)}"
+                    aria-label="Remove ${escapeHTML(product)}">×</button>
+            </div>
+        `).join("");
+
+        basketItems.querySelectorAll("[data-remove]").forEach(button => {
+            button.addEventListener("click", () => {
+                const box = checkboxes.find(
+                    item => item.value === button.dataset.remove
+                );
+                if (box) box.checked = false;
+                updateBasket();
+            });
+        });
+    }
+
+    /* FILTER PRODUCTS */
+    function filterProducts() {
+        const query = search.value.trim().toLowerCase();
+        let visible = 0;
+
+        options.forEach(option => {
+            const matchesSearch = option.dataset.name.includes(query);
+
+            const matchesCategory =
+                activeCategory === "all" ||
+                option.dataset.category === activeCategory;
+
+            const show = matchesSearch && matchesCategory;
+            option.hidden = !show;
+
+            if (show) visible++;
+        });
+
+        visibleCount.textContent = `${visible} AVAILABLE`;
+        noSearch.hidden = visible !== 0;
+        footerCategory.textContent = categoryNames[activeCategory];
+    }
+
+    categoryButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            activeCategory = button.dataset.category;
+
+            categoryButtons.forEach(item => item.classList.remove("active"));
+            button.classList.add("active");
+
+            filterProducts();
+        });
+    });
+
+    checkboxes.forEach(box => {
+        box.addEventListener("change", updateBasket);
+    });
+
+    search.addEventListener("input", filterProducts);
+
+    searchClear.addEventListener("click", () => {
+        search.value = "";
+        filterProducts();
+        search.focus();
+    });
+
+    selectVisible.addEventListener("click", () => {
+        options.forEach(option => {
+            if (!option.hidden) {
+                option.querySelector("input").checked = true;
+            }
+        });
+        updateBasket();
+    });
+
+    function showInitial() {
+        results.innerHTML = `
+            <div class="biq-empty">
+                <div class="biq-empty-symbol">✧</div>
+                <h3>Your smart recommendations await</h3>
+                <p>Select products, review your shopping basket and generate recommendations.</p>
+            </div>`;
+        status.textContent = "WAITING FOR BASKET";
+    }
+
+    function showLoading() {
+        results.innerHTML = `
+            <div class="biq-loading">
+                <div class="biq-spinner"></div>
+                <h3>Discovering product relationships...</h3>
+                <p>Matching your basket against trained Apriori association rules.</p>
+            </div>`;
+        status.textContent = "ANALYSING";
+    }
+
+    function showEmpty(message) {
+        results.innerHTML = `
+            <div class="biq-empty">
+                <div class="biq-empty-symbol">⌕</div>
+                <h3>No matching recommendations</h3>
+                <p>${escapeHTML(message || "Try another product or combination.")}</p>
+            </div>`;
+        status.textContent = "NO MATCHES";
+    }
+
+    clearBtn.addEventListener("click", () => {
+        checkboxes.forEach(box => box.checked = false);
+        updateBasket();
+        if (!isGenerating) showInitial();
+    });
+
+    /* RECOMMENDATION CARDS */
+    function renderResults(data) {
+        const recommendations = data.recommendations || [];
+
+        if (!recommendations.length) {
+            showEmpty(data.message);
+            return;
+        }
+
+        const selected = data.selected || getSelected();
+        status.textContent = `${recommendations.length} PRODUCTS FOUND`;
+
+        results.innerHTML = `
+            <div class="biq-result-summary">
+                <div>
+                    <small>BASED ON YOUR SELECTED BASKET</small>
+                    <strong>${selected.map(escapeHTML).join(" + ")}</strong>
+                </div>
+                <div class="biq-result-count">
+                    <strong>${recommendations.length}</strong>
+                    <span>AI recommendations</span>
+                </div>
+            </div>
+
+            <div class="biq-result-grid">
+                ${recommendations.map((item,index) => {
+                    const lift = Number(item.lift || 0);
+                    const confidence = Number(item.confidence || 0);
+                    const support = Number(item.support || 0);
+
+                    const matched = Array.isArray(item.matched_antecedents)
+                        ? item.matched_antecedents
+                        : selected;
+
+                    return `
+                        <article class="biq-result-card"
+                            style="animation-delay:${index * 70}ms">
+
+                            <div class="biq-card-top">
+                                <span class="biq-rank">RECOMMENDATION #${index + 1}</span>
+                                <span class="biq-match">✦ AI MATCH</span>
+                            </div>
+
+                            <div class="biq-product-symbol">✧</div>
+
+                            <h3>${escapeHTML(item.product)}</h3>
+
+                            <p class="biq-reason">
+                                Associated with your selected shopping basket.
+                            </p>
+
+                            <div class="biq-rule">
+                                <small>MATCHED ASSOCIATION RULE</small>
+                                <strong>
+                                    ${matched.map(escapeHTML).join(" + ")}
+                                    → ${escapeHTML(item.product)}
+                                </strong>
+                            </div>
+
+                            <div class="biq-metrics">
+                                <div class="biq-metric">
+                                    <span>CONFIDENCE</span>
+                                    <strong>${confidence.toFixed(2)}%</strong>
+                                </div>
+                                <div class="biq-metric">
+                                    <span>LIFT</span>
+                                    <strong>${lift.toFixed(3)}</strong>
+                                </div>
+                                <div class="biq-metric">
+                                    <span>SUPPORT</span>
+                                    <strong>${support.toFixed(4)}</strong>
+                                </div>
+                            </div>
+                        </article>`;
+                }).join("")}
+            </div>
+
+            <!-- HOW AI MADE THIS RECOMMENDATION -->
+            <div class="biq-how">
+
+                <div class="biq-how-header">
+                    <div class="biq-how-icon">✧</div>
+                    <div>
+                        <h3>How AI Made This Recommendation</h3>
+                        <p>Understand the intelligence behind your product suggestions.</p>
+                    </div>
+                </div>
+
+                <div class="biq-how-steps">
+
+                    <div class="biq-how-step">
+                        <small>STEP 01 · INPUT ANALYSIS</small>
+                        <h4>Shopping Basket Analysis</h4>
+                        <p>
+                            The system received your selected basket:
+                            <strong>${selected.map(escapeHTML).join(" + ")}</strong>.
+                            These products are used as input for recommendation matching.
+                        </p>
+                    </div>
+
+                    <div class="biq-how-step">
+                        <small>STEP 02 · PATTERN MATCHING</small>
+                        <h4>Apriori Association Rules</h4>
+                        <p>
+                            The system checks the trained association rules.
+                            A rule matches when all products in its antecedent
+                            are present in your selected basket.
+                        </p>
+                    </div>
+
+                    <div class="biq-how-step">
+                        <small>STEP 03 · RULE EVALUATION</small>
+                        <h4>Support, Confidence & Lift</h4>
+                        <p>
+                            Matching rules are evaluated using three statistical
+                            measures to understand how frequently products occur
+                            together and how strong their association is.
+                        </p>
+                    </div>
+
+                    <div class="biq-how-step">
+                        <small>STEP 04 · FINAL SELECTION</small>
+                        <h4>Smart Product Recommendation</h4>
+                        <p>
+                            Products already selected in your basket are excluded.
+                            The remaining matching recommendations are ranked
+                            using Lift, Confidence and Support.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="biq-how-formula">
+                    <h4>UNDERSTANDING THE AI METRICS</h4>
+
+                    <div class="biq-formula-row">
+
+                        <div class="biq-formula-item">
+                            <strong>SUPPORT</strong>
+                            <span>
+                                How frequently the selected product combination
+                                appears in all transactions.
+                            </span>
+                        </div>
+
+                        <div class="biq-formula-item">
+                            <strong>CONFIDENCE</strong>
+                            <span>
+                                How often the recommended product appears
+                                when the antecedent products occur.
+                            </span>
+                        </div>
+
+                        <div class="biq-formula-item">
+                            <strong>LIFT</strong>
+                            <span>
+                                Measures how strongly two product combinations
+                                are associated compared with independent occurrence.
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="biq-how-conclusion">
+                    <strong>✦ FINAL DECISION</strong><br>
+                    BASKET IQ uses historical shopping transactions to discover
+                    association patterns. It matches your selected products
+                    against those rules and suggests products that complete
+                    a matching pattern. These are statistical associations,
+                    not guaranteed future purchases.
+                </div>
+
+            </div>
+        `;
+    }
+
+    /* GENERATE RECOMMENDATIONS */
+    generateBtn.addEventListener("click", async () => {
+        if (isGenerating) return;
+
+        const selected = getSelected();
+
+        if (!selected.length) {
+            showEmpty("Please select at least one product in Product Selection.");
+            return;
+        }
+
+        isGenerating = true;
+        generateBtn.disabled = true;
+        generateBtn.textContent = "Analysing your basket...";
+        showLoading();
+
+        try {
+            const response = await fetch("/recommend", {
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({products:selected})
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || "Recommendation request failed.");
+            }
+
+            renderResults(data);
+
+            document.getElementById("ai-recommendations")
+                .scrollIntoView({
+                    behavior:"smooth",
+                    block:"start"
+                });
+
+        } catch (error) {
+            status.textContent = "ENGINE ERROR";
+
+            results.innerHTML = `
+                <div class="biq-empty">
+                    <div class="biq-empty-symbol">!</div>
+                    <h3>Unable to generate recommendations</h3>
+                    <p>${escapeHTML(error.message)}</p>
+                </div>`;
+
+        } finally {
+            isGenerating = false;
+            generateBtn.disabled = false;
+            generateBtn.textContent = "✧  GET SMART RECOMMENDATIONS";
+        }
+    });
+
+    /* INITIALIZE */
+    updateBasket();
+    filterProducts();
+
+});
+</script>
+{% endblock %}

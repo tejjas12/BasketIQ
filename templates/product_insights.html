@@ -1,0 +1,434 @@
+
+{% extends "base.html" %}
+
+{% block title %}Product Insights | BASKET IQ{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">PRODUCT INTELLIGENCE</span>
+        <h1>Product Insights</h1>
+        <p>Explore product popularity, purchase frequency and retail patterns.</p>
+    </div>
+    <div class="live-pill"><span></span> LIVE DATA</div>
+</section>
+
+<section class="insight-hero">
+    <div class="insight-hero-content">
+        <span class="hero-tag">RETAIL INTELLIGENCE</span>
+        <h2>Understand What<br><span>Customers Buy.</span></h2>
+        <p>
+            Discover the products appearing most frequently in customer baskets.
+            Turn transaction history into meaningful product-level insights.
+        </p>
+        <div class="hero-points">
+            <span>✦ Product popularity</span>
+            <span>✦ Purchase frequency</span>
+            <span>✦ Data-driven insights</span>
+        </div>
+    </div>
+    <div class="insight-hero-visual">
+        <div class="visual-circle circle-one"></div>
+        <div class="visual-circle circle-two"></div>
+        <div class="visual-center">
+            <span>PRODUCT</span>
+            <strong>IQ</strong>
+            <small>167 PRODUCTS</small>
+        </div>
+    </div>
+</section>
+
+<section class="stats-grid product-stats">
+    <div class="stat-card">
+        <div class="stat-top"><span>Total Products</span><span class="stat-icon purple">◈</span></div>
+        <h2 id="totalProducts">—</h2>
+        <small>Unique products in dataset</small>
+    </div>
+    <div class="stat-card">
+        <div class="stat-top"><span>Total Transactions</span><span class="stat-icon cyan">▤</span></div>
+        <h2 id="totalTransactions">—</h2>
+        <small>Analysed customer baskets</small>
+    </div>
+    <div class="stat-card">
+        <div class="stat-top"><span>Top Product</span><span class="stat-icon green">↗</span></div>
+        <h2 class="stat-product-name" id="topProduct">—</h2>
+        <small id="topProductFrequency">Most frequent product</small>
+    </div>
+    <div class="stat-card">
+        <div class="stat-top"><span>Product Appearances</span><span class="stat-icon orange">◎</span></div>
+        <h2 id="totalAppearances">—</h2>
+        <small>Total product appearances in baskets</small>
+    </div>
+</section>
+
+<section class="insight-layout">
+    <div class="panel product-chart-panel">
+        <div class="panel-heading">
+            <div>
+                <span class="eyebrow">POPULARITY RANKING</span>
+                <h3>Top 10 Products</h3>
+                <p>Products with the highest transaction frequency</p>
+            </div>
+            <span class="chart-label">TOP 10</span>
+        </div>
+        <div id="topProductsChart" class="product-chart"></div>
+    </div>
+
+    <div class="panel product-chart-panel">
+        <div class="panel-heading">
+            <div>
+                <span class="eyebrow">LOW FREQUENCY</span>
+                <h3>Least Frequent Products</h3>
+                <p>Products appearing less often in baskets</p>
+            </div>
+            <span class="chart-label">BOTTOM 10</span>
+        </div>
+        <div id="leastProductsChart" class="product-chart"></div>
+    </div>
+</section>
+
+<section class="panel product-table-panel">
+    <div class="panel-heading product-table-heading">
+        <div>
+            <span class="eyebrow">PRODUCT CATALOGUE</span>
+            <h3>Product Performance Ranking</h3>
+            <p>Search and explore all products by transaction frequency.</p>
+        </div>
+        <button class="btn-secondary" onclick="exportProductsCSV()">↓ Export CSV</button>
+    </div>
+
+    <div class="product-search-row">
+        <div class="search-box">
+            <span>⌕</span>
+            <input type="text" id="productSearch" placeholder="Search product name...">
+        </div>
+        <select id="productSort">
+            <option value="desc">Highest Frequency</option>
+            <option value="asc">Lowest Frequency</option>
+            <option value="az">Name: A to Z</option>
+        </select>
+    </div>
+
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>RANK</th>
+                    <th>PRODUCT NAME</th>
+                    <th>TRANSACTION FREQUENCY</th>
+                    <th>APPEARANCE SHARE</th>
+                    <th>POPULARITY</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+                <tr><td colspan="5" class="loading-cell">Loading product data...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-footer">
+        <span id="productCount">Loading products...</span>
+        <div class="pagination-controls">
+            <button id="prevProductPage" class="btn-secondary" onclick="changeProductPage(-1)">←</button>
+            <span id="productPageLabel">1 / 1</span>
+            <button id="nextProductPage" class="btn-secondary" onclick="changeProductPage(1)">→</button>
+        </div>
+    </div>
+</section>
+
+<section class="product-insight-bottom">
+    <div class="panel insight-summary">
+        <span class="eyebrow">AUTOMATED OBSERVATIONS</span>
+        <h3>What the Data Reveals</h3>
+        <p class="summary-intro">Insights generated from the actual product frequency data.</p>
+        <div id="generatedInsights" class="generated-insights">
+            <div class="generated-insight">Analysing product data...</div>
+        </div>
+    </div>
+
+    <div class="panel methodology-card">
+        <span class="eyebrow">HOW IT WORKS</span>
+        <h3>Understanding Frequency</h3>
+        <div class="methodology-number">01</div>
+        <p>
+            Product frequency represents the number of transactions in which
+            a product appears at least once.
+        </p>
+        <div class="methodology-divider"></div>
+        <div class="methodology-number">02</div>
+        <p>
+            Appearance share represents a product's frequency divided by
+            the total appearances of all products.
+        </p>
+        <div class="methodology-divider"></div>
+        <div class="methodology-number">03</div>
+        <p>
+            These metrics measure basket presence, not the quantity of units
+            sold or revenue generated.
+        </p>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let allProducts = [];
+let filteredProducts = [];
+let currentProductPage = 1;
+const productPageSize = 12;
+
+async function loadProductInsights() {
+    try {
+        const response = await fetch("/api/product-insights");
+        const data = await response.json();
+
+        if (!data.success) throw new Error("Could not load product insights.");
+
+        const top = data.top_products || [];
+        const least = data.least_frequent_products || [];
+
+        allProducts = [...(data.all_products || [])];
+
+        // Remove duplicates if the API lists a product in both collections.
+        
+
+        allProducts.sort((a, b) => Number(b.frequency) - Number(a.frequency));
+
+        const totalAppearances = allProducts.reduce(
+            (sum, p) => sum + Number(p.frequency || 0), 0
+        );
+
+        document.getElementById("totalProducts").textContent =
+            Number(data.total_products || allProducts.length).toLocaleString("en-IN");
+
+        document.getElementById("totalTransactions").textContent =
+            Number(data.total_transactions || 0).toLocaleString("en-IN");
+
+        document.getElementById("totalAppearances").textContent =
+            totalAppearances.toLocaleString("en-IN");
+
+        if (allProducts.length) {
+            document.getElementById("topProduct").textContent = allProducts[0].product;
+            document.getElementById("topProductFrequency").textContent =
+                Number(allProducts[0].frequency).toLocaleString("en-IN") +
+                " transaction appearances";
+        }
+
+        renderProductCharts(top, least);
+        generateProductInsights(allProducts, totalAppearances);
+        filterProducts();
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById("productTableBody").innerHTML =
+            '<tr><td colspan="5" class="loading-cell">Unable to load product data. Check the API and try again.</td></tr>';
+    }
+}
+
+function renderProductCharts(top, least) {
+    const topData = [...top].slice(0, 10).reverse();
+    const leastData = [...least].slice(0, 10).reverse();
+
+    const commonLayout = {
+        paper_bgcolor: "transparent",
+        plot_bgcolor: "transparent",
+        margin: { l: 125, r: 25, t: 10, b: 35 },
+        font: { color: "#aab2c5", family: "DM Sans" },
+        xaxis: {
+            gridcolor: "rgba(255,255,255,0.07)",
+            zeroline: false
+        },
+        yaxis: {
+            automargin: true,
+            tickfont: { size: 11 }
+        },
+        showlegend: false
+    };
+
+    Plotly.newPlot("topProductsChart", [{
+        type: "bar",
+        orientation: "h",
+        x: topData.map(p => Number(p.frequency)),
+        y: topData.map(p => p.product),
+        marker: {
+            color: topData.map((_, i) =>
+                `rgba(167,139,250,${0.45 + (i / 10) * 0.5})`
+            ),
+            line: { width: 0 }
+        },
+        hovertemplate: "%{y}<br>Frequency: %{x}<extra></extra>"
+    }], commonLayout, { responsive: true, displayModeBar: false });
+
+    Plotly.newPlot("leastProductsChart", [{
+        type: "bar",
+        orientation: "h",
+        x: leastData.map(p => Number(p.frequency)),
+        y: leastData.map(p => p.product),
+        marker: {
+            color: "rgba(69,217,232,0.72)",
+            line: { width: 0 }
+        },
+        hovertemplate: "%{y}<br>Frequency: %{x}<extra></extra>"
+    }], commonLayout, { responsive: true, displayModeBar: false });
+}
+
+function generateProductInsights(products, totalAppearances) {
+    const container = document.getElementById("generatedInsights");
+    if (!products.length) {
+        container.innerHTML = "<p>No product insights available.</p>";
+        return;
+    }
+
+    const top = products[0];
+    const bottom = products[products.length - 1];
+    const topShare = totalAppearances
+        ? (Number(top.frequency) / totalAppearances * 100).toFixed(2)
+        : "0.00";
+
+    const observations = [
+        {
+            icon: "↗",
+            title: "Most Frequent Product",
+            text: `${top.product} appears in ${Number(top.frequency).toLocaleString("en-IN")} transactions.`
+        },
+        {
+            icon: "◎",
+            title: "Lowest Frequency",
+            text: `${bottom.product} has the lowest frequency among the products returned by the API.`
+        },
+        {
+            icon: "%",
+            title: "Top Product Appearance Share",
+            text: `${top.product} accounts for ${topShare}% of all product appearances in the returned product list.`
+        }
+    ];
+
+    container.innerHTML = observations.map(item => `
+        <div class="generated-insight">
+            <div class="generated-insight-icon">${item.icon}</div>
+            <div>
+                <strong>${escapeProductHTML(item.title)}</strong>
+                <p>${escapeProductHTML(item.text)}</p>
+            </div>
+        </div>
+    `).join("");
+}
+
+function escapeProductHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+}
+
+function filterProducts() {
+    const query = document.getElementById("productSearch").value.toLowerCase();
+    const sort = document.getElementById("productSort").value;
+
+    filteredProducts = allProducts.filter(p =>
+        String(p.product).toLowerCase().includes(query)
+    );
+
+    if (sort === "asc") {
+        filteredProducts.sort((a, b) => Number(a.frequency) - Number(b.frequency));
+    } else if (sort === "az") {
+        filteredProducts.sort((a, b) => a.product.localeCompare(b.product));
+    } else {
+        filteredProducts.sort((a, b) => Number(b.frequency) - Number(a.frequency));
+    }
+
+    currentProductPage = 1;
+    renderProductTable();
+}
+
+function renderProductTable() {
+    const tbody = document.getElementById("productTableBody");
+    const total = filteredProducts.length;
+    const pages = Math.max(1, Math.ceil(total / productPageSize));
+    currentProductPage = Math.min(currentProductPage, pages);
+
+    const start = (currentProductPage - 1) * productPageSize;
+    const pageData = filteredProducts.slice(start, start + productPageSize);
+    const totalAppearances = allProducts.reduce(
+        (sum, p) => sum + Number(p.frequency || 0), 0
+    );
+
+    if (!pageData.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="loading-cell">No matching products found.</td></tr>';
+    } else {
+        tbody.innerHTML = pageData.map((p, i) => {
+            const frequency = Number(p.frequency || 0);
+            const share = totalAppearances
+                ? (frequency / totalAppearances * 100)
+                : 0;
+            const rank = start + i + 1;
+
+            return `
+                <tr>
+                    <td><span class="rank-badge">${rank}</span></td>
+                    <td><strong>${escapeProductHTML(p.product)}</strong></td>
+                    <td>${frequency.toLocaleString("en-IN")}</td>
+                    <td>${share.toFixed(2)}%</td>
+                    <td>
+                        <div class="popularity-track">
+                            <div style="width:${Math.min(100, totalAppearances ? frequency / totalAppearances * 100 * 5 : 0)}%"></div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    document.getElementById("productCount").textContent =
+        `Showing ${total ? start + 1 : 0}–${Math.min(start + productPageSize, total)} of ${total} products`;
+
+    document.getElementById("productPageLabel").textContent =
+        `${currentProductPage} / ${pages}`;
+
+    document.getElementById("prevProductPage").disabled = currentProductPage <= 1;
+    document.getElementById("nextProductPage").disabled = currentProductPage >= pages;
+}
+
+function changeProductPage(direction) {
+    currentProductPage += direction;
+    renderProductTable();
+}
+
+function exportProductsCSV() {
+    if (!filteredProducts.length) return;
+
+    const rows = [
+        ["Rank", "Product", "Transaction Frequency", "Appearance Share (%)"]
+    ];
+
+    const total = allProducts.reduce((sum, p) => sum + Number(p.frequency || 0), 0);
+
+    filteredProducts.forEach((p, i) => {
+        const frequency = Number(p.frequency || 0);
+        const share = total ? (frequency / total * 100).toFixed(2) : "0.00";
+        rows.push([i + 1, p.product, frequency, share]);
+    });
+
+    const csv = rows.map(row =>
+        row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(",")
+    ).join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "basket_iq_product_insights.csv";
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+document.getElementById("productSearch").addEventListener("input", filterProducts);
+document.getElementById("productSort").addEventListener("change", filterProducts);
+
+loadProductInsights();
+</script>
+{% endblock %}

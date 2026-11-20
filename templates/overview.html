@@ -1,0 +1,722 @@
+
+{% extends "base.html" %}
+
+{% block title %}Overview | BASKET IQ{% endblock %}
+{% block breadcrumb %}Overview Dashboard{% endblock %}
+
+{% block extra_head %}
+<style>
+/* APRIORI LEARNING SECTION */
+.biq-learning {
+    margin: 28px 0;
+    padding: 24px;
+    border-radius: 17px;
+    border: 1px solid rgba(167,139,250,.25);
+    background:
+        radial-gradient(ellipse at 100% 0%,rgba(56,213,232,.09),transparent 40%),
+        linear-gradient(135deg,#17182d,#111827);
+}
+.biq-learning-intro {
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:20px;
+}
+.biq-learning-icon {
+    width:46px;
+    height:46px;
+    display:grid;
+    place-items:center;
+    border-radius:13px;
+    color:#c4b5fd;
+    background:rgba(167,139,250,.15);
+    border:1px solid rgba(167,139,250,.3);
+    font-size:22px;
+    flex-shrink:0;
+}
+.biq-learning-intro h2 {
+    margin:0;
+    font-size:19px;
+}
+.biq-learning-intro p {
+    color:#929bb2;
+    font-size:11px;
+    margin:5px 0 0;
+    line-height:1.6;
+}
+.biq-apriori-box {
+    padding:17px;
+    border-radius:12px;
+    background:rgba(167,139,250,.08);
+    border:1px solid rgba(167,139,250,.2);
+    margin-bottom:15px;
+}
+.biq-apriori-box h3 {
+    margin:0 0 8px;
+    font-size:14px;
+    color:#c4b5fd;
+}
+.biq-apriori-box p {
+    margin:0;
+    color:#b4bdd0;
+    font-size:12px;
+    line-height:1.8;
+}
+.biq-metric-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:13px;
+}
+.biq-metric-card {
+    min-width:0;
+    padding:17px;
+    border-radius:12px;
+    background:#ffffff08;
+    border:1px solid rgba(255,255,255,.1);
+    transition:.2s;
+}
+.biq-metric-card:hover {
+    border-color:rgba(167,139,250,.55);
+    transform:translateY(-3px);
+}
+.biq-metric-card h3 {
+    font-size:14px;
+    margin:0 0 8px;
+}
+.biq-metric-card p {
+    color:#aab3c7;
+    font-size:11px;
+    line-height:1.7;
+    min-height:55px;
+    margin:0 0 13px;
+}
+.biq-formula {
+    padding:12px 9px;
+    border-radius:9px;
+    background:#090f1d;
+    border:1px solid rgba(255,255,255,.08);
+    color:#bcaaff;
+    text-align:center;
+    font-size:12px;
+    font-weight:700;
+    line-height:1.8;
+    overflow-wrap:anywhere;
+}
+.biq-metric-card small {
+    display:block;
+    margin-top:10px;
+    color:#7f8ba5;
+    font-size:10px;
+    line-height:1.6;
+}
+.biq-lift-info {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-top:15px;
+    padding:15px;
+    border-radius:11px;
+    background:#090f1d;
+    border:1px solid rgba(255,255,255,.08);
+}
+.biq-lift-info strong {
+    width:100%;
+    font-size:12px;
+    color:#d9d5ff;
+    margin-bottom:3px;
+}
+.biq-lift-tag {
+    padding:8px 11px;
+    border-radius:8px;
+    font-size:10px;
+    color:#cbd5e1;
+    background:#ffffff0a;
+    border:1px solid #ffffff12;
+}
+.biq-lift-tag span {
+    color:#67e8b7;
+    font-weight:800;
+}
+.biq-learning-note {
+    margin-top:14px;
+    color:#929bb2;
+    font-size:10px;
+    line-height:1.7;
+}
+@media(max-width:750px) {
+    .biq-metric-grid {
+        grid-template-columns:1fr;
+    }
+    .biq-metric-card p {
+        min-height:0;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HEADER -->
+<div class="page-heading">
+    <div class="eyebrow">RETAIL INTELLIGENCE / OVERVIEW</div>
+    <h1>Dashboard Overview<span style="color:#a78bfa;">.</span></h1>
+    <p>
+        A complete snapshot of retail transactions, customer purchasing
+        patterns, dataset quality and the Apriori intelligence engine.
+    </p>
+</div>
+
+
+<!-- WELCOME BANNER -->
+<div class="overview-hero">
+    <div class="hero-content">
+        <div class="hero-label">
+            <span class="hero-dot"></span>
+            INTELLIGENCE WORKSPACE
+        </div>
+
+        <h2>Discover the story<br>behind every basket.</h2>
+
+        <p>
+            Transforming grocery transaction data into meaningful
+            product relationships using Association Rule Learning.
+        </p>
+
+        <a href="{{ url_for('recommendations_page') }}" class="btn btn-primary">
+            Explore AI Recommendations <span>→</span>
+        </a>
+    </div>
+
+    <div class="hero-visual">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="orbit orbit-three"></div>
+
+        <div class="hero-core">
+            <span>BI</span>
+        </div>
+
+        <div class="orbit-node node-one">▦</div>
+        <div class="orbit-node node-two">✧</div>
+        <div class="orbit-node node-three">◇</div>
+    </div>
+</div>
+
+
+<!-- DATASET KPI CARDS -->
+<div class="section-heading">
+    <div>
+        <h2>Dataset at a Glance</h2>
+        <p>Key metrics extracted from the processed grocery dataset</p>
+    </div>
+    <span class="badge badge-green">PROCESSED DATA</span>
+</div>
+
+<div class="stats-grid">
+
+    <div class="card stat-card">
+        <div class="stat-icon">▦</div>
+        <div class="card-title">Total Transactions</div>
+        <div class="card-value">{{ "{:,}".format(total_transactions) }}</div>
+        <div class="card-description">Unique customer-day baskets</div>
+    </div>
+
+    <div class="card stat-card">
+        <div class="stat-icon">◇</div>
+        <div class="card-title">Unique Products</div>
+        <div class="card-value">{{ total_products }}</div>
+        <div class="card-description">Distinct grocery products</div>
+    </div>
+
+    <div class="card stat-card">
+        <div class="stat-icon">⌘</div>
+        <div class="card-title">Frequent Itemsets</div>
+        <div class="card-value">{{ total_itemsets }}</div>
+        <div class="card-description">Discovered product combinations</div>
+    </div>
+
+    <div class="card stat-card">
+        <div class="stat-icon">✧</div>
+        <div class="card-title">Association Rules</div>
+        <div class="card-value">{{ total_rules }}</div>
+        <div class="card-description">Generated product relationships</div>
+    </div>
+
+</div>
+
+
+<!-- DATA QUALITY -->
+<div class="section-heading">
+    <div>
+        <h2>Dataset Quality & Preparation</h2>
+        <p>Understanding the transformation from raw records to analysis-ready data</p>
+    </div>
+</div>
+
+<div class="content-grid">
+
+    <div class="card">
+        <div class="card-title">Data Cleaning Summary</div>
+
+        <div class="quality-list">
+
+            <div class="quality-row">
+                <div>
+                    <span class="quality-label">Original Records</span>
+                    <small>Raw Kaggle dataset</small>
+                </div>
+                <strong>38,765</strong>
+            </div>
+
+            <div class="quality-row">
+                <div>
+                    <span class="quality-label">Cleaned Records</span>
+                    <small>After duplicate removal</small>
+                </div>
+                <strong class="text-green">38,006</strong>
+            </div>
+
+            <div class="quality-row">
+                <div>
+                    <span class="quality-label">Exact Duplicates Removed</span>
+                    <small>Duplicate rows eliminated</small>
+                </div>
+                <strong class="text-purple">759</strong>
+            </div>
+
+            <div class="quality-row">
+                <div>
+                    <span class="quality-label">Unique Customers</span>
+                    <small>Distinct member IDs</small>
+                </div>
+                <strong>3,898</strong>
+            </div>
+
+        </div>
+
+        <div class="quality-progress">
+            <div class="quality-progress-heading">
+                <span>Records Retained</span>
+                <strong>98.04%</strong>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width:98.04%;"></div>
+            </div>
+            <small>Percentage of original records retained after cleaning.</small>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-title">Dataset Information</div>
+
+        <div class="dataset-info-list">
+
+            <div class="dataset-info-item">
+                <span>Dataset Name</span>
+                <strong>Groceries Dataset</strong>
+            </div>
+
+            <div class="dataset-info-item">
+                <span>Dataset Author</span>
+                <strong>Heeral Dedhia</strong>
+            </div>
+
+            <div class="dataset-info-item">
+                <span>Original Columns</span>
+                <strong>3</strong>
+            </div>
+
+            <div class="dataset-info-item">
+                <span>Transaction Format</span>
+                <strong>One-Hot Encoded</strong>
+            </div>
+
+            <div class="dataset-info-item">
+                <span>Learning Approach</span>
+                <strong>Unsupervised Learning</strong>
+            </div>
+
+            <div class="dataset-info-item">
+                <span>Core Algorithm</span>
+                <strong class="text-purple">Apriori</strong>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- PRODUCT ANALYTICS -->
+<div class="section-heading">
+    <div>
+        <h2>Product Performance</h2>
+        <p>Explore the most frequently appearing products in customer baskets</p>
+    </div>
+
+    <a href="{{ url_for('product_insights_page') }}" class="btn btn-secondary">
+        View All Insights →
+    </a>
+</div>
+
+<div class="content-grid">
+
+    <div class="card chart-card">
+        <h3>Top 10 Products by Frequency</h3>
+        <div id="overviewProductChart" class="chart-container"></div>
+    </div>
+
+    <div class="card">
+        <h3>Top Product Rankings</h3>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Product</th>
+                        <th>Frequency</th>
+                    </tr>
+                </thead>
+                <tbody id="overviewProductTable">
+                    <tr>
+                        <td colspan="3" class="empty-state">
+                            Loading product information...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- MODEL INFORMATION -->
+<div class="section-heading">
+    <div>
+        <h2>Intelligence Engine</h2>
+        <p>The machine learning methodology powering BASKET IQ</p>
+    </div>
+</div>
+
+<div class="three-column-grid">
+
+    <div class="card model-card">
+        <div class="model-card-icon purple-icon">✧</div>
+        <h3>Apriori Algorithm</h3>
+        <p>
+            Identifies frequent product combinations using
+            minimum support thresholds and the Apriori principle.
+        </p>
+        <span class="badge badge-purple">ASSOCIATION MINING</span>
+    </div>
+
+    <div class="card model-card">
+        <div class="model-card-icon cyan-icon">⌘</div>
+        <h3>Association Rules</h3>
+        <p>
+            Discovers directional relationships between products
+            using support, confidence and lift.
+        </p>
+        <span class="badge badge-cyan">RULE GENERATION</span>
+    </div>
+
+    <div class="card model-card">
+        <div class="model-card-icon green-icon">▦</div>
+        <h3>Recommendation Engine</h3>
+        <p>
+            Uses discovered association rules to suggest
+            related products based on selected basket items.
+        </p>
+        <span class="badge badge-green">PRODUCT RECOMMENDATION</span>
+    </div>
+
+</div>
+
+
+<!-- NEW: UNDERSTANDING APRIORI AND METRICS -->
+<div class="section-heading">
+    <div>
+        <h2>Understanding Apriori & Its Metrics</h2>
+        <p>A quick guide to the algorithm and statistical measures behind BASKET IQ</p>
+    </div>
+    <span class="badge badge-purple">ML CONCEPTS</span>
+</div>
+
+<div class="biq-learning">
+
+    <div class="biq-learning-intro">
+        <div class="biq-learning-icon">✧</div>
+        <div>
+            <h2>How Does Apriori Work?</h2>
+            <p>The foundation of Market Basket Analysis</p>
+        </div>
+    </div>
+
+    <div class="biq-apriori-box">
+        <h3>Apriori Algorithm</h3>
+        <p>
+            Apriori is an Unsupervised Machine Learning algorithm used
+            for Association Rule Mining. It discovers frequently purchased
+            product combinations from transaction data. It follows the
+            Apriori principle: if an itemset is frequent, all its non-empty
+            subsets must also be frequent.
+        </p>
+    </div>
+
+    <div class="biq-metric-grid">
+
+        <!-- SUPPORT -->
+        <div class="biq-metric-card">
+            <h3 style="color:#a78bfa;">01. Support</h3>
+            <p>
+                Measures how frequently a product combination appears
+                across all transactions.
+            </p>
+
+            <div class="biq-formula">
+                Support(A → B)<br>
+                = Count(A ∪ B) / Total Transactions
+            </div>
+
+            <small>
+                Higher support means the product combination appears
+                in a larger proportion of baskets.
+            </small>
+        </div>
+
+        <!-- CONFIDENCE -->
+        <div class="biq-metric-card">
+            <h3 style="color:#38d5e8;">02. Confidence</h3>
+            <p>
+                Measures how often product B appears in transactions
+                that already contain product A.
+            </p>
+
+            <div class="biq-formula">
+                Confidence(A → B)<br>
+                = Support(A ∪ B) / Support(A)
+            </div>
+
+            <small>
+                Example: If confidence is 60%, 60% of transactions
+                containing A also contain B.
+            </small>
+        </div>
+
+        <!-- LIFT -->
+        <div class="biq-metric-card">
+            <h3 style="color:#43d6a1;">03. Lift</h3>
+            <p>
+                Measures the strength of association between A and B
+                compared with their independent occurrence.
+            </p>
+
+            <div class="biq-formula">
+                Lift(A → B)<br>
+                = Confidence(A → B) / Support(B)
+            </div>
+
+            <small>
+                Lift helps identify whether two products are positively
+                associated, independent or negatively associated.
+            </small>
+        </div>
+
+    </div>
+
+    <!-- LIFT INTERPRETATION -->
+    <div class="biq-lift-info">
+        <strong>How to Interpret Lift Values</strong>
+
+        <div class="biq-lift-tag">
+            <span>Lift &gt; 1</span> · Positive Association
+        </div>
+
+        <div class="biq-lift-tag">
+            <span>Lift = 1</span> · Independent Occurrence
+        </div>
+
+        <div class="biq-lift-tag">
+            <span>Lift &lt; 1</span> · Negative Association
+        </div>
+    </div>
+
+    <div class="biq-learning-note">
+        Example: A rule Bread → Butter describes a directional association.
+        Support measures how often both occur, Confidence measures how often
+        Butter occurs when Bread is present, and Lift compares this relationship
+        with Butter's overall frequency. Association does not prove causation.
+    </div>
+
+</div>
+
+
+<!-- PROJECT WORKFLOW -->
+<div class="section-heading">
+    <div>
+        <h2>How BASKET IQ Works</h2>
+        <p>From raw transactions to actionable retail intelligence</p>
+    </div>
+</div>
+
+<div class="card workflow-card">
+
+    <div class="workflow-step">
+        <div class="workflow-number">01</div>
+        <div>
+            <strong>Transaction Data</strong>
+            <p>Collect grocery purchase records</p>
+        </div>
+    </div>
+
+    <div class="workflow-connector"></div>
+
+    <div class="workflow-step">
+        <div class="workflow-number">02</div>
+        <div>
+            <strong>Data Preprocessing</strong>
+            <p>Clean records and construct transaction baskets</p>
+        </div>
+    </div>
+
+    <div class="workflow-connector"></div>
+
+    <div class="workflow-step">
+        <div class="workflow-number">03</div>
+        <div>
+            <strong>Apriori Mining</strong>
+            <p>Discover frequent itemsets and associations</p>
+        </div>
+    </div>
+
+    <div class="workflow-connector"></div>
+
+    <div class="workflow-step">
+        <div class="workflow-number">04</div>
+        <div>
+            <strong>Retail Intelligence</strong>
+            <p>Generate recommendations and product insights</p>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="overview-note">
+    <strong>Research Note</strong>
+    <p>
+        Transaction baskets are derived by grouping purchases by customer
+        and date. Therefore, multiple purchases made by the same customer
+        on the same date are represented as one basket. Association rules
+        describe patterns in historical data and do not guarantee future purchases.
+    </p>
+</div>
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+
+    const chartElement = document.getElementById("overviewProductChart");
+    const tableBody = document.getElementById("overviewProductTable");
+
+    try {
+
+        const response = await fetch("/api/product-insights");
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error("Unable to load product insights.");
+        }
+
+        const products = data.top_products.slice(0, 10);
+
+        if (!products.length) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="3">No product data available.</td>
+                </tr>`;
+            return;
+        }
+
+        const names = products.map(item => item.product);
+        const frequencies = products.map(item => item.frequency);
+
+        Plotly.newPlot(chartElement, [{
+            type: "bar",
+            orientation: "h",
+            y: names.slice().reverse(),
+            x: frequencies.slice().reverse(),
+            marker: {
+                color: frequencies.slice().reverse(),
+                colorscale: [
+                    [0, "#5265a5"],
+                    [1, "#a78bfa"]
+                ],
+                line: { width: 0 }
+            },
+            hovertemplate: "%{y}<br>Frequency: %{x}<extra></extra>"
+        }], {
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+            margin: { l: 115, r: 20, t: 15, b: 35 },
+            xaxis: {
+                title: "Transaction Frequency",
+                color: "#8d9ab0",
+                gridcolor: "rgba(148,163,184,0.12)",
+                zeroline: false
+            },
+            yaxis: {
+                color: "#d5dbea",
+                automargin: true
+            },
+            font: {
+                family: "DM Sans",
+                color: "#d5dbea",
+                size: 11
+            },
+            showlegend: false
+        }, {
+            responsive: true,
+            displayModeBar: false
+        });
+
+        tableBody.innerHTML = products.map((item, index) => `
+            <tr>
+                <td><span class="rank-number">${index + 1}</span></td>
+                <td>${escapeHTML(item.product)}</td>
+                <td><strong>${Number(item.frequency).toLocaleString()}</strong></td>
+            </tr>
+        `).join("");
+
+    } catch (error) {
+
+        console.error(error);
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="3">Unable to load product information.</td>
+            </tr>`;
+    }
+
+    function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[char]);
+    }
+
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+SHOPMIND AI - DATASET PREPROCESSING REPORT
+
+Source dataset: Groceries_dataset.csv
+
+1. Original shape: 38,765 rows x 3 columns
+2. Rows after validation: 38,765
+3. Rows after exact duplicate removal: 38,006
+4. Invalid/missing rows removed: 0
+5. Duplicate purchase rows removed: 759
+6. Final clean purchase rows: 38,006
+7. Unique customers: 3,898
+8. Unique products: 167
+9. Derived transactions: 14,963
+10. Date range: 2014-01-01 to 2015-12-30
+11. Average distinct products per transaction: 2.54
+
+IMPORTANT TRANSACTION ASSUMPTION:
+The source file has Member_number and Date but no invoice number.
+Therefore, each unique Member_number + Date pair is treated as one basket.
+This is a practical approximation and must be disclosed in the project report/viva.
+It may combine multiple purchases by the same customer on the same day.
+
+PREPROCESSING PERFORMED:
+- Selected and validated the three required source columns.
+- Converted Member_number to numeric and then integer.
+- Parsed dates using the source format DD-MM-YYYY and standardized to YYYY-MM-DD.
+- Trimmed whitespace and converted product descriptions to lowercase.
+- Removed missing/invalid customer, date, or product rows.
+- Removed exact duplicate customer-date-product records.
+- Created TransactionID = Member_number_Date.
+- Created transaction-product, basket-list, and one-hot basket representations.
+- Generated customer and product frequency summaries.
+
+FILES:
+data/raw/Groceries_dataset_original.csv
+data/processed/cleaned_transactions.csv
+data/processed/transaction_items.csv
+data/processed/basket_transactions.csv
+data/processed/basket_onehot.csv
+data/processed/customer_summary.csv
+data/processed/product_frequency.csv
+reports/dataset_profile.json
+
+NEXT:
+Use basket_onehot.csv with mlxtend.frequent_patterns.apriori().
+Do not use customer_summary.csv as input to Apriori.

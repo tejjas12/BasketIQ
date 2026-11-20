@@ -1,0 +1,1238 @@
+
+{% extends "base.html" %}
+
+{% block title %}About BASKET IQ | Project Intelligence{% endblock %}
+{% block breadcrumb %}About Project{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================
+     01. PREMIUM PROJECT HERO
+===================================================== -->
+
+<section class="page-heading biq-about-heading">
+    <div>
+        <span class="eyebrow">PROJECT DOCUMENTATION / RETAIL INTELLIGENCE</span>
+        <h1>About BASKET IQ<span class="biq-title-dot">.</span></h1>
+        <p>Explore the concept, data science methodology, architecture and intelligence behind the platform.</p>
+    </div>
+    <div class="live-pill"><span></span> PROJECT PROFILE</div>
+</section>
+
+<section class="biq-about-hero">
+
+    <div class="biq-hero-grid"></div>
+    <div class="biq-hero-glow"></div>
+
+    <div class="biq-about-copy">
+        <div class="biq-hero-label">
+            <span class="biq-pulse-dot"></span>
+            AI-POWERED RETAIL INTELLIGENCE
+        </div>
+
+        <h2>
+            Discover Patterns.<br>
+            <span>Connect Products.</span><br>
+            Recommend Smarter.
+        </h2>
+
+        <p>
+            Transforming grocery transaction data into meaningful product
+            relationships through Market Basket Analysis, Association Rule
+            Learning and an interactive recommendation engine.
+        </p>
+
+        <div class="biq-hero-tags">
+            <span>PYTHON</span>
+            <span>APRIORI</span>
+            <span>MACHINE LEARNING</span>
+            <span>FLASK</span>
+        </div>
+
+        <a href="{{ url_for('recommendations_page') }}" class="biq-hero-button">
+            Explore AI Recommendations <span>→</span>
+        </a>
+    </div>
+
+    <div class="biq-logo-stage">
+
+        <div class="biq-logo-orbit biq-logo-orbit-outer"></div>
+        <div class="biq-logo-orbit biq-logo-orbit-middle"></div>
+        <div class="biq-logo-orbit biq-logo-orbit-inner"></div>
+
+        <div class="biq-logo-center">
+            <div class="biq-logo-shine"></div>
+            <strong>BI</strong>
+            <span>INTELLIGENCE</span>
+        </div>
+
+        <div class="biq-logo-node biq-node-data">▦</div>
+        <div class="biq-logo-node biq-node-ai">✧</div>
+        <div class="biq-logo-node biq-node-network">◇</div>
+        <div class="biq-logo-node biq-node-chart">⌘</div>
+
+        <div class="biq-logo-caption">MARKET BASKET INTELLIGENCE</div>
+    </div>
+
+    <div class="biq-hero-bottom">
+        <span>ASSOCIATION RULE LEARNING</span>
+        <span class="biq-hero-line"></span>
+        <span>UNSUPERVISED MACHINE LEARNING</span>
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     02. PROJECT SNAPSHOT
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">PROJECT AT A GLANCE / 01</span>
+            <h2>The Intelligence Snapshot</h2>
+            <p>A quick look at the dataset and current mining results.</p>
+        </div>
+        <span class="biq-section-number">01</span>
+    </div>
+
+    <div class="biq-snapshot-grid">
+
+        <div class="biq-snapshot-card">
+            <div class="biq-snapshot-icon purple">▦</div>
+            <span class="biq-snapshot-label">PROCESSED TRANSACTIONS</span>
+            <strong>14,963</strong>
+            <small>Customer-day baskets</small>
+            <div class="biq-snapshot-line purple-line"></div>
+        </div>
+
+        <div class="biq-snapshot-card">
+            <div class="biq-snapshot-icon cyan">◇</div>
+            <span class="biq-snapshot-label">UNIQUE PRODUCTS</span>
+            <strong>167</strong>
+            <small>Distinct grocery products</small>
+            <div class="biq-snapshot-line cyan-line"></div>
+        </div>
+
+        <div class="biq-snapshot-card">
+            <div class="biq-snapshot-icon green">⌘</div>
+            <span class="biq-snapshot-label">FREQUENT ITEMSETS</span>
+            <strong>126</strong>
+            <small>Discovered itemsets</small>
+            <div class="biq-snapshot-line green-line"></div>
+        </div>
+
+        <div class="biq-snapshot-card">
+            <div class="biq-snapshot-icon orange">✧</div>
+            <span class="biq-snapshot-label">ASSOCIATION RULES</span>
+            <strong>5</strong>
+            <small>Generated product rules</small>
+            <div class="biq-snapshot-line orange-line"></div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     03. PROJECT INTRODUCTION
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">INTRODUCTION / 02</span>
+            <h2>Inside BASKET IQ</h2>
+            <p>Understanding the purpose and vision of the project.</p>
+        </div>
+        <span class="biq-section-number">02</span>
+    </div>
+
+    <div class="biq-intro-grid">
+
+        <div class="biq-info-panel biq-intro-main">
+            <div class="biq-panel-kicker">01 / PROJECT OVERVIEW</div>
+            <h3>What is BASKET IQ?</h3>
+
+            <p>
+                BASKET IQ is an AI-powered retail recommendation and Market
+                Basket Analysis application designed to discover relationships
+                between products purchased together. It analyses historical
+                grocery transactions and converts raw purchase records into
+                interpretable product associations.
+            </p>
+
+            <p>
+                The system uses the Apriori algorithm, an unsupervised
+                association rule mining technique, to identify frequent
+                itemsets. It then generates directional association rules
+                evaluated using Support, Confidence and Lift.
+            </p>
+
+            <p>
+                These discovered rules form the foundation of the
+                recommendation interface. A user can select products in a
+                shopping basket and receive suggestions based on matching
+                historical association rules.
+            </p>
+
+            <p>
+                The application combines data preprocessing, machine learning,
+                backend processing and interactive visualisation into one
+                integrated web-based retail analytics system.
+            </p>
+
+            <div class="biq-highlight-quote">
+                <span>“</span>
+                Turning everyday shopping records into meaningful product
+                intelligence.
+            </div>
+        </div>
+
+        <div class="biq-info-panel biq-facts-panel">
+            <div class="biq-panel-kicker">02 / PROJECT PROFILE</div>
+            <h3>Project Information</h3>
+
+            <div class="biq-fact-row">
+                <span>Project Name</span>
+                <strong>BASKET IQ</strong>
+            </div>
+            <div class="biq-fact-row">
+                <span>Project Domain</span>
+                <strong>Retail Analytics</strong>
+            </div>
+            <div class="biq-fact-row">
+                <span>Category</span>
+                <strong>Data Science / AI</strong>
+            </div>
+            <div class="biq-fact-row">
+                <span>Learning Approach</span>
+                <strong>Unsupervised Learning</strong>
+            </div>
+            <div class="biq-fact-row">
+                <span>Core Algorithm</span>
+                <strong class="biq-purple-text">Apriori</strong>
+            </div>
+            <div class="biq-fact-row">
+                <span>Analysis Technique</span>
+                <strong>Market Basket Analysis</strong>
+            </div>
+            <div class="biq-fact-row">
+                <span>Backend</span>
+                <strong>Python / Flask</strong>
+            </div>
+            <div class="biq-fact-row">
+                <span>Interface</span>
+                <strong>Web Dashboard</strong>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     04. PROBLEM STATEMENT AND OBJECTIVES
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">THE CHALLENGE / 03</span>
+            <h2>Problem Statement & Objectives</h2>
+            <p>Why discovering product relationships matters.</p>
+        </div>
+        <span class="biq-section-number">03</span>
+    </div>
+
+    <div class="biq-problem-grid">
+
+        <div class="biq-info-panel biq-problem-panel">
+            <div class="biq-large-icon">⌕</div>
+            <div class="biq-panel-kicker">THE PROBLEM</div>
+            <h3>Finding Hidden Purchase Patterns</h3>
+
+            <p>
+                Retail transaction datasets contain large volumes of records
+                describing customer purchases. Although these records provide
+                valuable information, manually identifying which products
+                frequently occur together can be difficult and time-consuming.
+            </p>
+
+            <p>
+                Without a systematic analysis method, useful relationships
+                between products may remain hidden inside transaction data.
+                BASKET IQ addresses this challenge by applying association
+                rule mining to discover recurring product combinations.
+            </p>
+
+            <div class="biq-problem-bottom">
+                <span>DATA COMPLEXITY</span>
+                <span>→</span>
+                <span>DISCOVERABLE PATTERNS</span>
+            </div>
+        </div>
+
+        <div class="biq-info-panel biq-objectives-panel">
+            <div class="biq-large-icon cyan-icon">◎</div>
+            <div class="biq-panel-kicker">PROJECT OBJECTIVES</div>
+            <h3>What the System Aims to Achieve</h3>
+
+            <div class="biq-objective-list">
+                <div><span>01</span><p>Clean and prepare historical grocery transaction records.</p></div>
+                <div><span>02</span><p>Construct customer purchase baskets from transaction data.</p></div>
+                <div><span>03</span><p>Convert baskets into a one-hot encoded data matrix.</p></div>
+                <div><span>04</span><p>Discover frequent itemsets using the Apriori algorithm.</p></div>
+                <div><span>05</span><p>Generate and evaluate association rules.</p></div>
+                <div><span>06</span><p>Recommend related products using matching rules.</p></div>
+                <div><span>07</span><p>Present product patterns through an interactive dashboard.</p></div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     05. DATASET AND DATA QUALITY
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">DATA FOUNDATION / 04</span>
+            <h2>Dataset & Data Preparation</h2>
+            <p>The grocery transaction data powering the intelligence engine.</p>
+        </div>
+        <span class="biq-section-number">04</span>
+    </div>
+
+    <div class="biq-info-panel biq-dataset-panel">
+
+        <div class="biq-dataset-header">
+            <div>
+                <div class="biq-panel-kicker">DATA SOURCE</div>
+                <h3>Groceries Dataset</h3>
+                <p>Kaggle dataset by Heeral Dedhia</p>
+            </div>
+            <div class="biq-source-badge">KAGGLE DATASET</div>
+        </div>
+
+        <div class="biq-dataset-grid">
+            <div class="biq-dataset-stat">
+                <span>ORIGINAL RECORDS</span>
+                <strong>38,765</strong>
+                <small>Raw dataset rows</small>
+            </div>
+            <div class="biq-dataset-stat">
+                <span>CLEANED RECORDS</span>
+                <strong>38,006</strong>
+                <small>After duplicate removal</small>
+            </div>
+            <div class="biq-dataset-stat">
+                <span>DUPLICATES REMOVED</span>
+                <strong>759</strong>
+                <small>Exact duplicate rows</small>
+            </div>
+            <div class="biq-dataset-stat">
+                <span>UNIQUE CUSTOMERS</span>
+                <strong>3,898</strong>
+                <small>Distinct member IDs</small>
+            </div>
+            <div class="biq-dataset-stat">
+                <span>TRANSACTIONS</span>
+                <strong>14,963</strong>
+                <small>Customer-day baskets</small>
+            </div>
+            <div class="biq-dataset-stat">
+                <span>UNIQUE PRODUCTS</span>
+                <strong>167</strong>
+                <small>Distinct product names</small>
+            </div>
+        </div>
+
+        <div class="biq-retention">
+            <div class="biq-retention-heading">
+                <span>DATA RETENTION AFTER CLEANING</span>
+                <strong>98.04%</strong>
+            </div>
+            <div class="biq-retention-track">
+                <div></div>
+            </div>
+            <small>Percentage of original records retained after removing exact duplicates.</small>
+        </div>
+
+        <div class="biq-subheading">
+            <h4>Original Dataset Attributes</h4>
+            <p>The source dataset contains three primary columns.</p>
+        </div>
+
+        <div class="biq-attribute-grid">
+            <div class="biq-attribute">
+                <span class="biq-attribute-code">01</span>
+                <strong>Member_number</strong>
+                <p>Identifies the customer associated with a purchase record.</p>
+            </div>
+            <div class="biq-attribute">
+                <span class="biq-attribute-code">02</span>
+                <strong>Date</strong>
+                <p>Represents the date on which the purchase was recorded.</p>
+            </div>
+            <div class="biq-attribute">
+                <span class="biq-attribute-code">03</span>
+                <strong>itemDescription</strong>
+                <p>Contains the name of the purchased grocery product.</p>
+            </div>
+        </div>
+
+        <div class="biq-dataset-note">
+            <strong>Important — Transaction Construction</strong>
+            <p>
+                A transaction is derived by grouping records with the same
+                Member_number and Date. Therefore, multiple purchases made
+                by the same customer on the same date are combined into one
+                basket. This creates the customer-day transaction structure
+                used by the mining algorithm.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     06. PREPROCESSING PIPELINE
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">DATA ENGINEERING / 05</span>
+            <h2>End-to-End Data Pipeline</h2>
+            <p>How raw purchase records become analysis-ready transactions.</p>
+        </div>
+        <span class="biq-section-number">05</span>
+    </div>
+
+    <div class="biq-info-panel biq-pipeline-panel">
+
+        <div class="biq-pipeline-intro">
+            <div>
+                <h3>From Raw Data to Retail Intelligence</h3>
+                <p>Seven stages in the current BASKET IQ workflow.</p>
+            </div>
+            <span class="biq-pipeline-tag">7 PROCESSING STAGES</span>
+        </div>
+
+        <div class="biq-pipeline">
+
+            <div class="biq-pipeline-step">
+                <div class="biq-pipeline-icon">01</div>
+                <div class="biq-pipeline-content">
+                    <span>INPUT</span>
+                    <h4>Data Collection</h4>
+                    <p>Load the original grocery dataset containing customer IDs, purchase dates and item descriptions.</p>
+                </div>
+                <div class="biq-pipeline-status">SOURCE DATA</div>
+            </div>
+
+            <div class="biq-pipeline-step">
+                <div class="biq-pipeline-icon">02</div>
+                <div class="biq-pipeline-content">
+                    <span>CLEANING</span>
+                    <h4>Data Cleaning</h4>
+                    <p>Remove 759 exact duplicate records and prepare the cleaned transaction-level data.</p>
+                </div>
+                <div class="biq-pipeline-status">38,006 ROWS</div>
+            </div>
+
+            <div class="biq-pipeline-step">
+                <div class="biq-pipeline-icon">03</div>
+                <div class="biq-pipeline-content">
+                    <span>GROUPING</span>
+                    <h4>Transaction Generation</h4>
+                    <p>Group records using Member_number and Date to construct customer-day purchase baskets.</p>
+                </div>
+                <div class="biq-pipeline-status">14,963 BASKETS</div>
+            </div>
+
+            <div class="biq-pipeline-step">
+                <div class="biq-pipeline-icon">04</div>
+                <div class="biq-pipeline-content">
+                    <span>TRANSFORMATION</span>
+                    <h4>One-Hot Encoding</h4>
+                    <p>Represent each transaction as a boolean matrix indicating whether each product is present.</p>
+                </div>
+                <div class="biq-pipeline-status">BOOLEAN MATRIX</div>
+            </div>
+
+            <div class="biq-pipeline-step">
+                <div class="biq-pipeline-icon">05</div>
+                <div class="biq-pipeline-content">
+                    <span>MINING</span>
+                    <h4>Frequent Itemset Discovery</h4>
+                    <p>Apply Apriori to identify product sets that satisfy the configured minimum support threshold.</p>
+                </div>
+                <div class="biq-pipeline-status">126 ITEMSETS</div>
+            </div>
+
+            <div class="biq-pipeline-step">
+                <div class="biq-pipeline-icon">06</div>
+                <div class="biq-pipeline-content">
+                    <span>RULE GENERATION</span>
+                    <h4>Association Rule Evaluation</h4>
+                    <p>Generate directional product rules and evaluate them using confidence and lift thresholds.</p>
+                </div>
+                <div class="biq-pipeline-status">5 RULES</div>
+            </div>
+
+            <div class="biq-pipeline-step">
+                <div class="biq-pipeline-icon">07</div>
+                <div class="biq-pipeline-content">
+                    <span>APPLICATION</span>
+                    <h4>Dashboard & Recommendations</h4>
+                    <p>Serve product insights, rule information and basket-based recommendations through Flask.</p>
+                </div>
+                <div class="biq-pipeline-status">WEB OUTPUT</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     07. APRIORI AND ASSOCIATION RULE LEARNING
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">MACHINE LEARNING / 06</span>
+            <h2>Apriori Algorithm & Rule Mining</h2>
+            <p>The mathematical foundation behind product associations.</p>
+        </div>
+        <span class="biq-section-number">06</span>
+    </div>
+
+    <div class="biq-info-panel biq-algorithm-panel">
+
+        <div class="biq-algorithm-intro">
+            <div class="biq-algorithm-symbol">A</div>
+            <div>
+                <span class="biq-panel-kicker">CORE MINING ALGORITHM</span>
+                <h3>What is the Apriori Algorithm?</h3>
+                <p>
+                    Apriori is an association rule mining algorithm used to
+                    discover frequent itemsets in transactional databases.
+                    It works by examining item combinations and eliminating
+                    candidate combinations that cannot satisfy the minimum
+                    support requirement.
+                </p>
+            </div>
+        </div>
+
+        <div class="biq-apriori-principle">
+            <div class="biq-principle-icon">∞</div>
+            <div>
+                <strong>The Apriori Principle</strong>
+                <p>
+                    If an itemset is frequent, all of its non-empty subsets
+                    must also be frequent. Conversely, if an itemset is
+                    infrequent, its supersets cannot be frequent.
+                </p>
+            </div>
+        </div>
+
+        <div class="biq-subheading">
+            <h4>How the Algorithm Finds Patterns</h4>
+            <p>A simplified illustration of the frequent itemset mining process.</p>
+        </div>
+
+        <div class="biq-mining-flow">
+
+            <div class="biq-mining-node">
+                <span>01</span>
+                <strong>Single Items</strong>
+                <small>A, B, C</small>
+            </div>
+
+            <div class="biq-mining-arrow">→</div>
+
+            <div class="biq-mining-node">
+                <span>02</span>
+                <strong>Count Support</strong>
+                <small>Check frequency</small>
+            </div>
+
+            <div class="biq-mining-arrow">→</div>
+
+            <div class="biq-mining-node">
+                <span>03</span>
+                <strong>Generate Candidates</strong>
+                <small>AB, AC, BC</small>
+            </div>
+
+            <div class="biq-mining-arrow">→</div>
+
+            <div class="biq-mining-node">
+                <span>04</span>
+                <strong>Frequent Itemsets</strong>
+                <small>Retain valid sets</small>
+            </div>
+
+        </div>
+
+        <div class="biq-subheading">
+            <h4>Three Important Evaluation Metrics</h4>
+            <p>These metrics help evaluate the discovered association rules.</p>
+        </div>
+
+        <div class="biq-metric-grid">
+
+            <div class="biq-metric-card">
+                <div class="biq-metric-top">
+                    <span class="biq-metric-symbol purple-symbol">S</span>
+                    <span class="biq-metric-index">METRIC 01</span>
+                </div>
+                <h4>Support</h4>
+                <p>
+                    Measures the proportion of all transactions that contain
+                    both A and B.
+                </p>
+                <div class="biq-formula">
+                    Support(A → B)<br>
+                    = Count(A ∪ B) / N
+                </div>
+                <small>Indicates how frequently the product combination occurs.</small>
+            </div>
+
+            <div class="biq-metric-card">
+                <div class="biq-metric-top">
+                    <span class="biq-metric-symbol cyan-symbol">C</span>
+                    <span class="biq-metric-index">METRIC 02</span>
+                </div>
+                <h4>Confidence</h4>
+                <p>
+                    Measures how frequently B appears in transactions
+                    that contain A.
+                </p>
+                <div class="biq-formula">
+                    Confidence(A → B)<br>
+                    = Support(A ∪ B) / Support(A)
+                </div>
+                <small>Indicates the conditional frequency of B given A.</small>
+            </div>
+
+            <div class="biq-metric-card">
+                <div class="biq-metric-top">
+                    <span class="biq-metric-symbol green-symbol">L</span>
+                    <span class="biq-metric-index">METRIC 03</span>
+                </div>
+                <h4>Lift</h4>
+                <p>
+                    Compares the rule confidence with the overall support
+                    of the consequent B.
+                </p>
+                <div class="biq-formula">
+                    Lift(A → B)<br>
+                    = Confidence(A → B) / Support(B)
+                </div>
+                <small>Indicates the strength of association relative to independent occurrence.</small>
+            </div>
+
+        </div>
+
+        <div class="biq-lift-panel">
+            <h4>Understanding Lift Values</h4>
+            <div class="biq-lift-grid">
+                <div><span class="biq-lift-dot positive"></span><strong>Lift &gt; 1</strong><small>Positive association</small></div>
+                <div><span class="biq-lift-dot neutral"></span><strong>Lift = 1</strong><small>Independent occurrence</small></div>
+                <div><span class="biq-lift-dot negative"></span><strong>Lift &lt; 1</strong><small>Negative association</small></div>
+            </div>
+        </div>
+
+        <div class="biq-method-note">
+            <strong>Important distinction:</strong>
+            Association rules identify statistical relationships in
+            historical transactions. They do not establish causation or
+            guarantee that a customer will purchase a recommended product.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     08. MODEL CONFIGURATION AND RESULTS
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">EXPERIMENTAL RESULTS / 07</span>
+            <h2>Model Configuration & Results</h2>
+            <p>Actual parameters and outputs from the current mining run.</p>
+        </div>
+        <span class="biq-section-number">07</span>
+    </div>
+
+    <div class="biq-results-grid">
+
+        <div class="biq-info-panel">
+            <div class="biq-panel-kicker">TRAINING CONFIGURATION</div>
+            <h3>Apriori Parameters</h3>
+
+            <div class="biq-parameter-row">
+                <div><strong>Minimum Support</strong><small>Required itemset frequency</small></div>
+                <span>0.005</span>
+            </div>
+
+            <div class="biq-parameter-row">
+                <div><strong>Minimum Confidence</strong><small>Minimum rule confidence</small></div>
+                <span>0.05</span>
+            </div>
+
+            <div class="biq-parameter-row">
+                <div><strong>Minimum Lift</strong><small>Minimum association lift</small></div>
+                <span>1.0</span>
+            </div>
+
+            <div class="biq-parameter-row">
+                <div><strong>Maximum Itemset Length</strong><small>Maximum products per itemset</small></div>
+                <span>3</span>
+            </div>
+
+            <div class="biq-parameter-note">
+                These are the configured thresholds used in the current
+                model training run.
+            </div>
+        </div>
+
+        <div class="biq-info-panel">
+            <div class="biq-panel-kicker">CURRENT MODEL OUTPUT</div>
+            <h3>Frequent Itemset Results</h3>
+
+            <div class="biq-result-total">
+                <strong>126</strong>
+                <span>Total frequent itemsets discovered</span>
+            </div>
+
+            <div class="biq-result-breakdown">
+                <div>
+                    <span>Single-item itemsets</span>
+                    <strong>89</strong>
+                    <div class="biq-result-bar"><div style="width:70.63%"></div></div>
+                </div>
+                <div>
+                    <span>Two-item itemsets</span>
+                    <strong>37</strong>
+                    <div class="biq-result-bar cyan-bar"><div style="width:29.37%"></div></div>
+                </div>
+                <div>
+                    <span>Three-item itemsets</span>
+                    <strong>0</strong>
+                    <div class="biq-result-bar green-bar"><div style="width:0%"></div></div>
+                </div>
+            </div>
+
+            <div class="biq-rule-count">
+                <span>Generated Association Rules</span>
+                <strong>05</strong>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="biq-info-panel biq-example-panel">
+        <div class="biq-panel-kicker">EXAMPLE FROM CURRENT MODEL OUTPUT</div>
+        <h3>Discovered Association Rule</h3>
+
+        <div class="biq-example-rule">
+            <div class="biq-rule-product">
+                <span>ANTECEDENT</span>
+                <strong>Frankfurter</strong>
+            </div>
+            <div class="biq-rule-arrow">→</div>
+            <div class="biq-rule-product consequent">
+                <span>CONSEQUENT</span>
+                <strong>Other Vegetables</strong>
+            </div>
+        </div>
+
+        <div class="biq-example-metrics">
+            <div><span>SUPPORT</span><strong>0.005146</strong></div>
+            <div><span>CONFIDENCE</span><strong>13.63%</strong></div>
+            <div><span>LIFT</span><strong>1.11615</strong></div>
+        </div>
+
+        <p class="biq-example-explanation">
+            This rule indicates that approximately 13.63% of transactions
+            containing frankfurter also contain other vegetables. Its lift
+            of 1.11615 indicates a positive association compared with the
+            overall frequency of other vegetables. This is an observed
+            historical pattern, not a causal relationship.
+        </p>
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     09. RECOMMENDATION ENGINE
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">APPLICATION LOGIC / 08</span>
+            <h2>How Recommendations Are Generated</h2>
+            <p>Connecting selected basket items with discovered association rules.</p>
+        </div>
+        <span class="biq-section-number">08</span>
+    </div>
+
+    <div class="biq-info-panel">
+
+        <div class="biq-recommend-intro">
+            <div class="biq-recommend-symbol">✧</div>
+            <div>
+                <h3>From Selected Products to Suggestions</h3>
+                <p>
+                    The recommendation engine uses the association rules
+                    discovered during the Apriori mining process. It matches
+                    the selected products against rule antecedents and
+                    returns eligible consequent products.
+                </p>
+            </div>
+        </div>
+
+        <div class="biq-recommend-flow">
+
+            <div class="biq-recommend-step">
+                <span>01</span>
+                <strong>Product Selection</strong>
+                <small>User selects products</small>
+            </div>
+
+            <div class="biq-recommend-step">
+                <span>02</span>
+                <strong>Basket Creation</strong>
+                <small>Selected items form a basket</small>
+            </div>
+
+            <div class="biq-recommend-step">
+                <span>03</span>
+                <strong>Rule Matching</strong>
+                <small>Match basket with antecedents</small>
+            </div>
+
+            <div class="biq-recommend-step">
+                <span>04</span>
+                <strong>Rule Ranking</strong>
+                <small>Rank matching rules</small>
+            </div>
+
+            <div class="biq-recommend-step">
+                <span>05</span>
+                <strong>Suggestions</strong>
+                <small>Display eligible products</small>
+            </div>
+
+        </div>
+
+        <div class="biq-recommend-detail-grid">
+            <div>
+                <strong>Antecedent Matching</strong>
+                <p>The selected basket must contain all products in a rule's antecedent.</p>
+            </div>
+            <div>
+                <strong>Consequent Filtering</strong>
+                <p>Products already present in the selected basket are excluded from suggestions.</p>
+            </div>
+            <div>
+                <strong>Rule Ranking</strong>
+                <p>Matching rules are ranked using lift, confidence and support.</p>
+            </div>
+        </div>
+
+        <div class="biq-method-note">
+            Recommendations are generated from the available association
+            rules. If no rule matches the selected basket, the system may
+            return no recommendations.
+        </div>
+
+        <a href="{{ url_for('recommendations_page') }}" class="biq-inline-link">
+            Try the Recommendation Engine <span>→</span>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     10. SYSTEM ARCHITECTURE
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">TECHNICAL DESIGN / 09</span>
+            <h2>System Architecture</h2>
+            <p>The flow of information across the BASKET IQ application.</p>
+        </div>
+        <span class="biq-section-number">09</span>
+    </div>
+
+    <div class="biq-info-panel biq-architecture-panel">
+
+        <div class="biq-architecture-node input-node">
+            <span>01 / DATA SOURCE</span>
+            <strong>Groceries Dataset</strong>
+            <small>Customer · Date · Product</small>
+        </div>
+
+        <div class="biq-architecture-connector"><span>↓</span></div>
+
+        <div class="biq-architecture-node">
+            <span>02 / DATA PROCESSING</span>
+            <strong>Python Processing Layer</strong>
+            <small>Pandas · NumPy · Transaction Construction</small>
+        </div>
+
+        <div class="biq-architecture-connector"><span>↓</span></div>
+
+        <div class="biq-architecture-node">
+            <span>03 / MINING ENGINE</span>
+            <strong>Apriori & Association Rule Mining</strong>
+            <small>MLxtend · Frequent Itemsets · Rule Generation</small>
+        </div>
+
+        <div class="biq-architecture-connector"><span>↓</span></div>
+
+        <div class="biq-architecture-node">
+            <span>04 / PROCESSED OUTPUT</span>
+            <strong>Analysis Data Files</strong>
+            <small>Basket Matrix · Itemsets · Association Rules</small>
+        </div>
+
+        <div class="biq-architecture-connector"><span>↓</span></div>
+
+        <div class="biq-architecture-node flask-node">
+            <span>05 / BACKEND</span>
+            <strong>Flask Application</strong>
+            <small>Routes · APIs · Recommendation Logic</small>
+        </div>
+
+        <div class="biq-architecture-connector"><span>↓</span></div>
+
+        <div class="biq-architecture-node ui-node">
+            <span>06 / PRESENTATION</span>
+            <strong>Interactive Web Dashboard</strong>
+            <small>HTML · CSS · JavaScript · Plotly</small>
+        </div>
+
+        <div class="biq-architecture-output">
+            <span>FINAL OUTPUT</span>
+            <strong>Retail Insights & Product Recommendations</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     11. TECHNOLOGY STACK
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">DEVELOPMENT STACK / 10</span>
+            <h2>Technologies Behind the System</h2>
+            <p>Tools and technologies used to build the application.</p>
+        </div>
+        <span class="biq-section-number">10</span>
+    </div>
+
+    <div class="biq-tech-grid">
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">PY</div>
+            <strong>Python</strong>
+            <span>Core Programming</span>
+            <p>Data processing, mining logic and backend application development.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">PD</div>
+            <strong>Pandas</strong>
+            <span>Data Manipulation</span>
+            <p>Cleaning, grouping and transforming transaction datasets.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">NP</div>
+            <strong>NumPy</strong>
+            <span>Numerical Computing</span>
+            <p>Numerical data operations and supporting calculations.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">ML</div>
+            <strong>MLxtend</strong>
+            <span>Association Mining</span>
+            <p>Apriori frequent itemset mining and association rule generation.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">FL</div>
+            <strong>Flask</strong>
+            <span>Backend Framework</span>
+            <p>Web routes, APIs and recommendation processing.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">HT</div>
+            <strong>HTML & CSS</strong>
+            <span>Interface Design</span>
+            <p>Page structure, responsive layouts and visual styling.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">JS</div>
+            <strong>JavaScript</strong>
+            <span>Frontend Interaction</span>
+            <p>Dynamic user interaction, filtering and API communication.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">PL</div>
+            <strong>Plotly</strong>
+            <span>Data Visualisation</span>
+            <p>Interactive charts for product frequency and analytical insights.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">GH</div>
+            <strong>GitHub</strong>
+            <span>Version Control</span>
+            <p>Project source-code management and repository hosting.</p>
+        </div>
+
+        <div class="biq-tech-card">
+            <div class="biq-tech-icon">RE</div>
+            <strong>Render</strong>
+            <span>Deployment Platform</span>
+            <p>Platform used for deploying the Flask web application.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     12. LIMITATIONS AND FUTURE SCOPE
+===================================================== -->
+
+<section class="biq-about-section">
+
+    <div class="biq-section-heading">
+        <div>
+            <span class="biq-section-eyebrow">BEYOND THE CURRENT VERSION / 11</span>
+            <h2>Limitations & Future Scope</h2>
+            <p>Current boundaries and opportunities for further development.</p>
+        </div>
+        <span class="biq-section-number">11</span>
+    </div>
+
+    <div class="biq-future-grid">
+
+        <div class="biq-info-panel">
+            <div class="biq-future-heading">
+                <div class="biq-future-icon warning">!</div>
+                <div>
+                    <span>CURRENT VERSION</span>
+                    <h3>Project Limitations</h3>
+                </div>
+            </div>
+
+            <div class="biq-future-list">
+                <div><span>01</span><p>The analysis depends on historical grocery transaction data.</p></div>
+                <div><span>02</span><p>Same-day purchases by a customer are combined into one basket.</p></div>
+                <div><span>03</span><p>Association rules indicate relationships, not causal effects.</p></div>
+                <div><span>04</span><p>The current training run produced five association rules.</p></div>
+                <div><span>05</span><p>The selected dataset fields do not provide product prices or revenue.</p></div>
+                <div><span>06</span><p>Recommendations depend on the association rules discovered during training.</p></div>
+            </div>
+        </div>
+
+        <div class="biq-info-panel">
+            <div class="biq-future-heading">
+                <div class="biq-future-icon future">↗</div>
+                <div>
+                    <span>NEXT DEVELOPMENT</span>
+                    <h3>Future Enhancements</h3>
+                </div>
+            </div>
+
+            <div class="biq-future-list">
+                <div><span>01</span><p>Experiment with different support, confidence and lift thresholds.</p></div>
+                <div><span>02</span><p>Evaluate other association rule mining algorithms.</p></div>
+                <div><span>03</span><p>Integrate larger and more recent retail transaction datasets.</p></div>
+                <div><span>04</span><p>Explore customer segmentation and purchase-pattern analysis.</p></div>
+                <div><span>05</span><p>Add pricing and revenue analytics when suitable data becomes available.</p></div>
+                <div><span>06</span><p>Explore personalised recommendations and advanced product insights.</p></div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     13. PROJECT CONCLUSION
+===================================================== -->
+
+<section class="biq-about-section biq-conclusion-section">
+
+    <div class="biq-conclusion-card">
+
+        <div class="biq-conclusion-orbit">
+            <div class="biq-conclusion-core">BI</div>
+        </div>
+
+        <div class="biq-conclusion-copy">
+            <span class="biq-section-eyebrow">THE BASKET IQ VISION</span>
+            <h2>From Transactions<br>to <span>Intelligence.</span></h2>
+
+            <p>
+                BASKET IQ demonstrates an end-to-end Market Basket Analysis
+                workflow, starting from raw transaction cleaning and
+                preparation, continuing through frequent itemset mining
+                and association rule generation, and ending with an
+                interactive product recommendation interface.
+            </p>
+
+            <p>
+                By combining data science concepts with practical web
+                application development, the project illustrates how
+                historical retail data can be transformed into
+                interpretable product relationships.
+            </p>
+
+            <a href="{{ url_for('recommendations_page') }}" class="biq-hero-button">
+                Experience BASKET IQ <span>→</span>
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* Scroll reveal */
+    const revealElements = document.querySelectorAll(
+        ".biq-about-section, .biq-about-hero, .biq-snapshot-card, .biq-tech-card"
+    );
+
+    if ("IntersectionObserver" in window) {
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("biq-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.12
+        });
+
+        revealElements.forEach(element => {
+            element.classList.add("biq-reveal");
+            observer.observe(element);
+        });
+
+    } else {
+        revealElements.forEach(element => {
+            element.classList.add("biq-visible");
+        });
+    }
+
+    /* Animate snapshot counters */
+    const counters = document.querySelectorAll(".biq-snapshot-card strong");
+
+    if ("IntersectionObserver" in window) {
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+
+                if (!entry.isIntersecting) return;
+
+                const element = entry.target;
+                const target = Number(element.textContent.replace(/,/g, ""));
+
+                if (!Number.isFinite(target)) {
+                    counterObserver.unobserve(element);
+                    return;
+                }
+
+                const duration = 1300;
+                const startTime = performance.now();
+
+                function updateCounter(now) {
+                    const progress = Math.min((now - startTime) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(target * eased);
+
+                    element.textContent = current.toLocaleString("en-IN");
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.textContent = target.toLocaleString("en-IN");
+                    }
+                }
+
+                requestAnimationFrame(updateCounter);
+                counterObserver.unobserve(element);
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+    }
+
+});
+</script>
+{% endblock %}

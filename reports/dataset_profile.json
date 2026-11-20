@@ -1,0 +1,17 @@
+{
+  "source_file": "Groceries_dataset.csv",
+  "original_rows": 38765,
+  "rows_after_validation": 38765,
+  "rows_after_deduplication": 38006,
+  "invalid_or_missing_rows_removed": 0,
+  "duplicate_purchase_rows_removed": 759,
+  "clean_rows": 38006,
+  "unique_customers": 3898,
+  "unique_products": 167,
+  "transactions": 14963,
+  "date_min": "2014-01-01",
+  "date_max": "2015-12-30",
+  "basket_definition": "One transaction is a unique Member_number + Date combination because the source dataset has no invoice/transaction ID.",
+  "average_items_per_transaction": 2.539998663369645,
+  "max_items_per_transaction": 10
+}
